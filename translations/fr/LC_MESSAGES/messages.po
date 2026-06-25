@@ -1,18 +1,12 @@
-# French translations for CTFd Velodrome theme.
-
-# Copyright (C) 2026
-
-# This file is distributed under the same license as the project.
-
 #
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Velodrome CTF 2026\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-24 14:14+0200\n"
-"PO-Revision-Date: 2026-06-24 14:30+0200\n"
-"Last-Translator: Formind [contact@formind.fr](mailto:contact@formind.fr)\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-25 14:11+0200\n"
+"PO-Revision-Date: 2026-06-25 14:11+0200\n"
+"Last-Translator: FULL NAME [EMAIL@ADDRESS](mailto:EMAIL@ADDRESS)\n"
 "Language-Team: French [fr@li.org](mailto:fr@li.org)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -76,11 +70,11 @@ msgstr "Partager"
 
 #: templates/challenge.html:241
 msgid "Rate this challenge:"
-msgstr "Noter cette épreuve :"
+msgstr "Notez cette épreuve :"
 
 #: templates/challenge.html:258
 msgid "Write a review (optional)"
-msgstr "Écrire un commentaire facultatif"
+msgstr "Rédiger un avis (facultatif)"
 
 #: templates/challenge.html:272
 msgid "Thank you for your rating!"
@@ -116,20 +110,20 @@ msgid ""
 "To send a confirmation email to your email address, please click the "
 "button below."
 msgstr ""
-"Pour envoyer un e-mail de confirmation à votre adresse e-mail, veuillez "
-"cliquer sur le bouton ci-dessous."
+"Pour envoyer un e-mail de confirmation à votre adresse e-mail, cliquez sur "
+"le bouton ci-dessous."
 
 #: templates/confirm.html:23 templates/confirm.html:34
 msgid "Please click the link in that email to confirm your account."
-msgstr "Veuillez cliquer sur le lien dans cet e-mail pour confirmer votre compte."
+msgstr "Cliquez sur le lien contenu dans cet e-mail pour confirmer votre compte."
 
 #: templates/confirm.html:26 templates/confirm.html:37
 msgid ""
 "If the email doesn’t arrive, check your spam folder or contact an "
 "administrator to manually verify your account."
 msgstr ""
-"Si l’e-mail n’arrive pas, vérifiez votre dossier de courrier indésirable "
-"ou contactez un administrateur pour faire vérifier votre compte manuellement."
+"Si l’e-mail n’arrive pas, vérifiez votre dossier de spam ou contactez un "
+"administrateur pour faire vérifier votre compte manuellement."
 
 #: templates/confirm.html:30
 msgid "We've sent a confirmation email to your email address."
@@ -137,9 +131,9 @@ msgstr "Nous avons envoyé un e-mail de confirmation à votre adresse e-mail."
 
 #: templates/confirm.html:51
 msgid "Change Email Address"
-msgstr "Changer d’adresse e-mail"
+msgstr "Modifier l’adresse e-mail"
 
-#: templates/index.html:15
+#: templates/index.html:15 templates/page.html:15
 msgid "2026 Edition · Saint-Quentin-en-Yvelines National Velodrome"
 msgstr "Édition 2026 · Vélodrome National de Saint-Quentin-en-Yvelines"
 
@@ -147,11 +141,11 @@ msgstr "Édition 2026 · Vélodrome National de Saint-Quentin-en-Yvelines"
 msgid "CTF [client] 2026"
 msgstr "CTF [client] 2026"
 
-#: templates/index.html:20
+#: templates/index.html:20 templates/page.html:20
 msgid "Hack the track."
-msgstr "Hack the track."
+msgstr "Hackez la piste."
 
-#: templates/index.html:24
+#: templates/index.html:24 templates/page.html:24
 msgid ""
 "\n"
 "      As part of the Cycling World Cup, your company is responsible for "
@@ -160,12 +154,12 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Dans le cadre de la Coupe du monde de cyclisme, votre société est "
-"chargée de sécuriser\n"
-"      les systèmes industriels de l’un des sites accueillant l’événement.\n"
+"      Dans le cadre de la Coupe du monde de cyclisme, votre entreprise est "
+"responsable de la sécurisation\n"
+"      des systèmes industriels de l’un des sites accueillant l’événement.\n"
 "      "
 
-#: templates/index.html:31
+#: templates/index.html:31 templates/page.html:31
 msgid ""
 "\n"
 "      Industrial supervision, critical equipment, automation, exposed "
@@ -175,45 +169,45 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Supervision industrielle, équipements critiques, automatismes, réseaux "
-"exposés et pression temps réel :\n"
-"      vos équipes devront garder le contrôle pendant que la compétition bat "
+"      Supervision industrielle, équipements critiques, automatisation, "
+"réseaux exposés et pression en temps réel :\n"
+"      vos équipes doivent garder le contrôle pendant que la compétition bat "
 "son plein.\n"
 "      "
 
-#: templates/index.html:40
+#: templates/index.html:40 templates/page.html:40
 msgid "Enter the arena"
 msgstr "Entrer dans l’arène"
 
-#: templates/index.html:44
+#: templates/index.html:44 templates/page.html:44
 msgid "View scoreboard"
 msgstr "Voir le classement"
 
-#: templates/index.html:48
+#: templates/index.html:48 templates/page.html:48
 msgid "Join the CTF"
 msgstr "Rejoindre le CTF"
 
-#: templates/index.html:52
+#: templates/index.html:52 templates/page.html:52
 msgid "Log in"
 msgstr "Se connecter"
 
-#: templates/index.html:60
+#: templates/index.html:60 templates/page.html:60
 msgid "New edition"
 msgstr "Nouvelle édition"
 
-#: templates/index.html:65
+#: templates/index.html:65 templates/page.html:65
 msgid "National Velodrome"
-msgstr "Vélodrome national"
+msgstr "Vélodrome National"
 
-#: templates/index.html:70
+#: templates/index.html:70 templates/page.html:70
 msgid "Industrial systems"
 msgstr "Systèmes industriels"
 
-#: templates/index.html:81
+#: templates/index.html:81 templates/page.html:81
 msgid "Your mission"
 msgstr "Votre mission"
 
-#: templates/index.html:85
+#: templates/index.html:85 templates/page.html:85
 msgid ""
 "\n"
 "          Secure the critical infrastructure of a cycling competition "
@@ -221,11 +215,11 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Sécuriser l’infrastructure critique d’un site de compétition "
+"          Sécurisez l’infrastructure critique d’un site de compétition "
 "cycliste.\n"
 "          "
 
-#: templates/index.html:93
+#: templates/index.html:93 templates/page.html:93
 msgid ""
 "\n"
 "          The velodrome is running at full speed. Supervision systems are"
@@ -238,10 +232,10 @@ msgstr ""
 "          Le vélodrome tourne à plein régime. Les systèmes de supervision "
 "remontent des signaux faibles,\n"
 "          les équipements industriels communiquent, les points d’accès se "
-"multiplient et chaque seconde compte.\n"
+"multiplient, et chaque seconde compte.\n"
 "          "
 
-#: templates/index.html:100
+#: templates/index.html:100 templates/page.html:100
 msgid ""
 "\n"
 "          Analysis, exploitation, investigation, hardening: prove that "
@@ -252,14 +246,14 @@ msgstr ""
 "\n"
 "          Analyse, exploitation, investigation, durcissement : prouvez que "
 "votre équipe sait garder la tête froide\n"
-"          lorsque la pression monte sur la piste.\n"
+"          quand la pression monte sur la piste.\n"
 "          "
 
-#: templates/index.html:111
+#: templates/index.html:111 templates/page.html:111
 msgid "Reconnaissance"
 msgstr "Reconnaissance"
 
-#: templates/index.html:113
+#: templates/index.html:113 templates/page.html:113
 msgid ""
 "\n"
 "          Map the environment, identify exposed services, and understand "
@@ -271,11 +265,11 @@ msgstr ""
 "comprenez la surface d’attaque.\n"
 "          "
 
-#: templates/index.html:121
+#: templates/index.html:121 templates/page.html:121
 msgid "Exploitation"
 msgstr "Exploitation"
 
-#: templates/index.html:123
+#: templates/index.html:123 templates/page.html:123
 msgid ""
 "\n"
 "          Exploit application, network, or industrial weaknesses to "
@@ -283,15 +277,15 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Exploitez les faiblesses applicatives, réseau ou industrielles "
+"          Exploitez des faiblesses applicatives, réseau ou industrielles "
 "pour progresser dans le scénario.\n"
 "          "
 
-#: templates/index.html:131
+#: templates/index.html:131 templates/page.html:131
 msgid "Resilience"
 msgstr "Résilience"
 
-#: templates/index.html:133
+#: templates/index.html:133 templates/page.html:133
 msgid ""
 "\n"
 "          Prioritize, secure, and keep critical systems under control all"
@@ -299,7 +293,7 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Priorisez, sécurisez et maintenez les systèmes critiques sous "
+"          Priorisez, sécurisez et gardez les systèmes critiques sous "
 "contrôle jusqu’à la ligne d’arrivée.\n"
 "          "
 
@@ -319,12 +313,16 @@ msgstr "Notifications"
 
 #: templates/notifications.html:14
 msgid "There are no notifications yet"
-msgstr "Il n’y a pas encore de notification"
+msgstr "Il n’y a pas encore de notifications"
+
+#: templates/page.html:19
+msgid "CTF ByTech 2026"
+msgstr "CTF ByTech 2026"
 
 #: templates/components/navbar.html:151 templates/components/navbar.html:156
 #: templates/register.html:7
 msgid "Register"
-msgstr "Inscription"
+msgstr "S’inscrire"
 
 #: templates/register.html:35
 msgid "Your username on the site"
@@ -341,13 +339,13 @@ msgstr "Mot de passe utilisé pour vous connecter à votre compte"
 #: templates/register.html:69
 #, python-format
 msgid ""
-"By registering, you agree to the <a href="%(privacy_link)s" "
-"target="_blank">privacy policy</a> and <a href="%(tos_link)s" "
-"target="_blank">terms of service</a>"
+"By registering, you agree to the <a href=\"%(privacy_link)s\" "
+"target=\"_blank\">privacy policy</a> and <a href=\"%(tos_link)s\" "
+"target=\"_blank\">terms of service</a>"
 msgstr ""
-"En vous inscrivant, vous acceptez la <a href="%(privacy_link)s" "
-"target="_blank">politique de confidentialité</a> et les <a "
-"href="%(tos_link)s" target="_blank">conditions d’utilisation</a>"
+"En vous inscrivant, vous acceptez la <a href=\"%(privacy_link)s\" "
+"target=\"_blank\">politique de confidentialité</a> et les <a "
+"href=\"%(tos_link)s\" target=\"_blank\">conditions d’utilisation</a>"
 
 #: templates/reset_password.html:7
 msgid "Reset Password"
@@ -363,7 +361,7 @@ msgstr ""
 
 #: templates/reset_password.html:44
 msgid "Please provide the email address associated with your account below."
-msgstr "Veuillez saisir ci-dessous l’adresse e-mail associée à votre compte."
+msgstr "Veuillez indiquer ci-dessous l’adresse e-mail associée à votre compte."
 
 #: templates/components/navbar.html:52 templates/scoreboard.html:7
 msgid "Scoreboard"
@@ -484,11 +482,11 @@ msgstr "Les participants créent des comptes et forment des équipes"
 
 #: templates/setup.html:113
 msgid "If a team member solves a challenge, the entire team receives credit"
-msgstr "Si un membre d’une équipe résout une épreuve, toute l’équipe obtient les points"
+msgstr "Si un membre de l’équipe résout une épreuve, toute l’équipe reçoit les points"
 
 #: templates/setup.html:115
 msgid "Easier to see which team member solved a challenge"
-msgstr "Il est plus facile d’identifier quel membre de l’équipe a résolu une épreuve"
+msgstr "Permet de voir plus facilement quel membre de l’équipe a résolu une épreuve"
 
 #: templates/setup.html:116
 msgid "May be slightly more difficult to administer"
@@ -508,7 +506,7 @@ msgstr "Plus facile à organiser"
 
 #: templates/setup.html:124
 msgid "Difficult to attribute solutions to individual team members"
-msgstr "Difficile d’attribuer les solutions aux membres individuels d’une équipe"
+msgstr "Difficile d’attribuer les résolutions aux membres individuels de l’équipe"
 
 #: templates/setup.html:143
 msgid "Visibility Settings"
@@ -516,11 +514,13 @@ msgstr "Paramètres de visibilité"
 
 #: templates/setup.html:146
 msgid "Control the visibility of different sections of CTFd"
-msgstr "Contrôler la visibilité des différentes sections de CTFd"
+msgstr "Contrôlez la visibilité des différentes sections de CTFd"
 
 #: templates/setup.html:232
 msgid "Subscribe email address to the CTFd LLC Newsletter for news and updates"
-msgstr "Inscrire l’adresse e-mail à la newsletter CTFd LLC pour recevoir les actualités et mises à jour"
+msgstr ""
+"Inscrire l’adresse e-mail à la newsletter de CTFd LLC pour recevoir les "
+"actualités et les mises à jour"
 
 #: templates/setup.html:309 templates/setup.html:330
 #: templates/teams/private.html:391 templates/teams/public.html:160
@@ -583,12 +583,12 @@ msgstr "429 Trop de requêtes"
 
 #: templates/errors/502.html:12
 msgid "502 Bad Gateway"
-msgstr "502 Passerelle incorrecte"
+msgstr "502 Mauvaise passerelle"
 
 #: templates/macros/forms.html:13 templates/macros/forms.html:36
 #: templates/macros/forms.html:65
 msgid "(Optional)"
-msgstr "Facultatif"
+msgstr "(Facultatif)"
 
 #: templates/teams/invite.html:6 templates/teams/join_team.html:6
 #: templates/teams/team_enrollment.html:36
@@ -597,7 +597,7 @@ msgstr "Rejoindre une équipe"
 
 #: templates/teams/invite.html:15 templates/teams/team_enrollment.html:12
 msgid "Welcome to"
-msgstr "Bienvenue sur"
+msgstr "Bienvenue dans"
 
 #: templates/teams/invite.html:19
 msgid "Click the button below to join the team!"
@@ -708,7 +708,7 @@ msgstr "Pour participer, vous devez rejoindre ou créer une équipe."
 
 #: templates/teams/team_enrollment.html:22
 msgid "Play with Official Team"
-msgstr "Jouer avec l’équipe officielle"
+msgstr "Jouer avec une équipe officielle"
 
 #: templates/teams/team_enrollment.html:27
 msgid "Join Unofficial Team"
@@ -740,8 +740,8 @@ msgid ""
 "Searching for users with <strong>%(field)s</strong> matching "
 "<strong>%(q)s</strong>"
 msgstr ""
-"Recherche d’utilisateurs avec <strong>%(field)s</strong> correspondant à "
-"<strong>%(q)s</strong>"
+"Recherche d’utilisateurs dont le champ <strong>%(field)s</strong> correspond "
+"à <strong>%(q)s</strong>"
 
 #: templates/users/users.html:17
 #, python-format
