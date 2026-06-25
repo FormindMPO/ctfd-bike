@@ -1,0 +1,873 @@
+:root {
+  color-scheme: dark;
+
+  --velodrome-white: #ffffff;
+
+  /* Dark-only foundation */
+  --velodrome-bg: #050816;
+  --velodrome-bg-alt: #0a1024;
+  --velodrome-surface: rgba(255, 255, 255, 0.075);
+  --velodrome-surface-solid: #111827;
+  --velodrome-surface-alt: #172033;
+
+  /* Existing vélodrome palette, boosted for dark */
+  --velodrome-orange: #ff9a3d;
+  --velodrome-orange-dark: #f58220;
+  --velodrome-cyan: #3bb4c8;
+  --velodrome-yellow: #ffc845;
+  --velodrome-red: #ff735f;
+  --velodrome-pink: #ff4d9a;
+  --velodrome-purple: #7a5cff;
+  --velodrome-green: #18f2b2;
+
+  --velodrome-charcoal: #f4f7f8;
+  --velodrome-muted: rgba(244, 247, 248, 0.68);
+  --velodrome-muted-strong: rgba(244, 247, 248, 0.84);
+  --velodrome-border: rgba(255, 255, 255, 0.14);
+  --velodrome-border-strong: rgba(255, 255, 255, 0.24);
+
+  --velodrome-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+  --velodrome-shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.24);
+
+  /* Bootstrap dark overrides */
+  --bs-body-bg: var(--velodrome-bg);
+  --bs-body-color: #f4f7f8;
+  --bs-primary: var(--velodrome-orange);
+  --bs-primary-rgb: 255, 154, 61;
+  --bs-secondary: #b7c0c7;
+  --bs-secondary-rgb: 183, 192, 199;
+  --bs-success: var(--velodrome-cyan);
+  --bs-success-rgb: 59, 180, 200;
+  --bs-info: var(--velodrome-cyan);
+  --bs-info-rgb: 59, 180, 200;
+  --bs-warning: var(--velodrome-yellow);
+  --bs-warning-rgb: 255, 200, 69;
+  --bs-danger: var(--velodrome-red);
+  --bs-danger-rgb: 255, 115, 95;
+  --bs-link-color: var(--velodrome-yellow);
+  --bs-link-hover-color: #ffffff;
+  --bs-border-color: var(--velodrome-border);
+  --bs-tertiary-bg: var(--velodrome-surface-solid);
+}
+
+/* Force dark even if CTFd / Bootstrap toggles the data attribute */
+html,
+html[data-bs-theme],
+html[data-bs-theme="light"],
+html[data-bs-theme="dark"] {
+  color-scheme: dark;
+  background: var(--velodrome-bg);
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(59, 180, 200, 0.18), transparent 32rem),
+    radial-gradient(circle at 85% 20%, rgba(255, 77, 154, 0.18), transparent 30rem),
+    linear-gradient(135deg, var(--velodrome-bg) 0%, var(--velodrome-bg-alt) 48%, #14051f 100%);
+  color: var(--bs-body-color);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 72%);
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, transparent 0 42%, rgba(255, 154, 61, 0.08) 42% 43%, transparent 43% 100%),
+    linear-gradient(105deg, transparent 0 58%, rgba(59, 180, 200, 0.08) 58% 59%, transparent 59% 100%);
+  pointer-events: none;
+}
+
+main > .container,
+.jumbotron .container {
+  position: relative;
+}
+
+/* Navbar */
+
+.navbar {
+  background:
+    linear-gradient(
+        90deg,
+        var(--velodrome-cyan) 0 18%,
+        var(--velodrome-yellow) 18% 34%,
+        var(--velodrome-orange) 34% 78%,
+        var(--velodrome-red) 78% 100%
+      )
+      bottom / 100% 4px no-repeat,
+    rgba(5, 8, 22, 0.86) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: var(--velodrome-shadow-soft);
+  backdrop-filter: blur(18px);
+}
+
+.navbar .container {
+  gap: 0.75rem;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .dropdown-toggle {
+  color: #f4f7f8 !important;
+}
+
+.navbar-brand {
+  align-items: center;
+  display: inline-flex;
+  font-family: Raleway, Lato, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  min-height: 2rem;
+}
+
+.navbar-brand img {
+  max-height: 2rem;
+  width: auto;
+}
+
+.navbar .nav-link,
+.navbar .dropdown-item {
+  border-radius: 0.45rem;
+  font-weight: 800;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+  background-color: rgba(255, 154, 61, 0.16);
+  color: var(--velodrome-yellow) !important;
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.15rem rgba(255, 154, 61, 0.28);
+}
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.dropdown-menu {
+  background-color: rgba(17, 24, 39, 0.98);
+  border: 1px solid var(--velodrome-border);
+  border-radius: 0.75rem;
+  box-shadow: var(--velodrome-shadow-soft);
+  color: #f4f7f8;
+}
+
+.dropdown-item {
+  color: #f4f7f8;
+}
+
+/* Hero homepage */
+
+.velodrome-home {
+  background: transparent;
+}
+
+.hero-velodrome {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  padding: 7rem 0 5rem;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+  opacity: 0.55;
+}
+
+.hero-orbit {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.hero-orbit-one {
+  width: 78rem;
+  height: 21rem;
+  right: -22rem;
+  top: 10rem;
+  box-shadow: 0 0 80px rgba(59, 180, 200, 0.18);
+}
+
+.hero-orbit-two {
+  width: 60rem;
+  height: 16rem;
+  right: -12rem;
+  top: 18rem;
+  border-color: rgba(255, 77, 154, 0.35);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1040px;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--velodrome-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  color: var(--velodrome-muted-strong);
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.6rem;
+}
+
+.pulse-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--velodrome-green);
+  box-shadow: 0 0 0 0 rgba(24, 242, 178, 0.65);
+  animation: pulse 1.7s infinite;
+}
+
+.hero-velodrome h1 {
+  font-size: clamp(3.3rem, 8vw, 7.5rem);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  margin: 0 0 1.8rem;
+  max-width: 900px;
+}
+
+.hero-velodrome h1 span {
+  display: block;
+  background: linear-gradient(90deg, #ffffff, #4ee7ff 42%, var(--velodrome-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-intro {
+  max-width: 820px;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.92);
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  max-width: 760px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--velodrome-muted);
+  margin-bottom: 2.2rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.hero-btn,
+.btn-primary,
+.btn-dark {
+  border: 0;
+  background: linear-gradient(135deg, var(--velodrome-cyan), var(--velodrome-purple) 48%, var(--velodrome-pink));
+  color: #ffffff;
+  box-shadow: 0 20px 50px rgba(122, 92, 255, 0.35);
+  font-weight: 900;
+}
+
+.hero-btn {
+  padding: 0.95rem 1.45rem;
+}
+
+.hero-btn:hover,
+.hero-btn:focus,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-dark:hover,
+.btn-dark:focus {
+  background: linear-gradient(135deg, #4ee7ff, #8b74ff 48%, #ff6fab);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 28px 70px rgba(255, 77, 154, 0.28);
+}
+
+.hero-btn-secondary,
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  font-weight: 800;
+}
+
+.hero-btn-secondary {
+  padding: 0.95rem 1.45rem;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 720px;
+  border: 1px solid var(--velodrome-border);
+  border-radius: 1.4rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.065);
+  backdrop-filter: blur(18px);
+}
+
+.hero-stats div {
+  padding: 1.15rem 1.25rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.hero-stats div:last-child {
+  border-right: 0;
+}
+
+.hero-stats strong {
+  display: block;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.hero-stats span {
+  display: block;
+  color: rgba(255, 255, 255, 0.62);
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+
+/* Existing CTFd header / jumbotron */
+
+.jumbotron {
+  background:
+    linear-gradient(90deg, rgba(255, 154, 61, 0.15), transparent 42%),
+    rgba(255, 255, 255, 0.065);
+  border-bottom: 1px solid var(--velodrome-border);
+  color: #f4f7f8;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  padding: 3rem 1rem;
+  position: relative;
+  text-align: center;
+  backdrop-filter: blur(18px);
+}
+
+.jumbotron::before {
+  background: linear-gradient(
+    90deg,
+    var(--velodrome-cyan),
+    var(--velodrome-yellow),
+    var(--velodrome-orange),
+    var(--velodrome-red)
+  );
+  content: "";
+  height: 0.28rem;
+  inset: auto 0 0;
+  position: absolute;
+}
+
+.jumbotron h1,
+.container > h1,
+.container > h2,
+.container > h3,
+.category-header h3 {
+  color: #f4f7f8 !important;
+}
+
+.jumbotron h1 {
+  font-family: Raleway, Lato, sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  margin-bottom: 0;
+}
+
+/* Mission section */
+
+.mission-section {
+  position: relative;
+  padding: 5rem 0 6rem;
+}
+
+.mission-card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3rem;
+  padding: clamp(1.8rem, 4vw, 3rem);
+  border: 1px solid var(--velodrome-border);
+  border-radius: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045));
+  box-shadow: var(--velodrome-shadow);
+  backdrop-filter: blur(18px);
+}
+
+.section-label {
+  color: #4ee7ff;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  font-size: 0.78rem;
+  margin-bottom: 0.8rem;
+}
+
+.mission-card h2 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.mission-copy p {
+  color: var(--velodrome-muted);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.challenge-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.challenge-cards article {
+  padding: 1.6rem;
+  border: 1px solid var(--velodrome-border);
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: var(--velodrome-shadow-soft);
+}
+
+.challenge-cards span {
+  color: var(--velodrome-pink);
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.challenge-cards h3 {
+  margin: 0.65rem 0;
+  font-size: 1.25rem;
+}
+
+.challenge-cards p {
+  color: var(--velodrome-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Categories / challenge listing */
+
+.category-header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.category-header h3 {
+  font-weight: 900;
+  margin-bottom: 0;
+}
+
+.category-header::after {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 154, 61, 0.78),
+    rgba(59, 180, 200, 0.42),
+    transparent
+  );
+  border-radius: 999px;
+  content: "";
+  flex: 1 1 auto;
+  height: 0.18rem;
+}
+
+.challenge-button {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid var(--velodrome-border) !important;
+  box-shadow: var(--velodrome-shadow-soft) !important;
+  color: #f4f7f8 !important;
+  min-height: 8rem;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.challenge-button::before {
+  background: linear-gradient(180deg, var(--velodrome-cyan), var(--velodrome-purple), var(--velodrome-pink));
+  content: "";
+  inset: 0 auto 0 0;
+  position: absolute;
+  width: 0.32rem;
+}
+
+.challenge-button:hover,
+.challenge-button:focus {
+  background: rgba(255, 255, 255, 0.105) !important;
+  border-color: rgba(255, 154, 61, 0.62) !important;
+  box-shadow: var(--velodrome-shadow) !important;
+  transform: translateY(-2px);
+}
+
+.challenge-button .challenge-inner {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  height: 100%;
+  justify-content: center;
+  padding-left: 0.45rem;
+  position: relative;
+  z-index: 1;
+}
+
+.challenge-button .challenge-inner p {
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+}
+
+.challenge-button .challenge-inner span {
+  align-items: center;
+  background-color: rgba(255, 154, 61, 0.16);
+  border: 1px solid rgba(255, 154, 61, 0.32);
+  border-radius: 999px;
+  color: var(--velodrome-yellow);
+  display: inline-flex;
+  font-weight: 900;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.challenge-button.challenge-solved {
+  border-color: rgba(59, 180, 200, 0.46) !important;
+}
+
+.challenge-button.challenge-solved::before {
+  background: var(--velodrome-cyan);
+}
+
+.challenge-button.challenge-solved .challenge-inner span {
+  background-color: rgba(59, 180, 200, 0.16);
+  border-color: rgba(59, 180, 200, 0.32);
+  color: #8be5f2;
+}
+
+/* Buttons / badges */
+
+.btn {
+  border-radius: 0.45rem;
+  font-weight: 900;
+}
+
+.btn-info {
+  background-color: var(--velodrome-cyan);
+  border-color: var(--velodrome-cyan);
+  color: #ffffff;
+}
+
+.btn-warning {
+  background-color: var(--velodrome-yellow);
+  border-color: var(--velodrome-yellow);
+  color: #111827;
+}
+
+.btn-danger {
+  background-color: var(--velodrome-red);
+  border-color: var(--velodrome-red);
+}
+
+.btn-outline-secondary {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #f4f7f8;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+  background-color: var(--velodrome-orange);
+  border-color: var(--velodrome-orange);
+  color: #ffffff;
+}
+
+.badge.bg-primary,
+.text-bg-primary {
+  background-color: var(--velodrome-orange) !important;
+}
+
+.badge.bg-secondary,
+.text-bg-secondary {
+  background-color: #64748b !important;
+}
+
+.badge.bg-info,
+.text-bg-info {
+  background-color: var(--velodrome-cyan) !important;
+  color: #ffffff !important;
+}
+
+.badge.bg-danger,
+.text-bg-danger {
+  background-color: var(--velodrome-red) !important;
+}
+
+.badge.bg-warning,
+.text-bg-warning {
+  background-color: var(--velodrome-yellow) !important;
+  color: #111827 !important;
+}
+
+/* Cards / modals / forms / tables */
+
+.modal-content,
+.card,
+.alert,
+.form-control,
+.form-select,
+.table {
+  border-radius: 0.65rem;
+}
+
+.card,
+.modal-content {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--velodrome-border);
+  box-shadow: var(--velodrome-shadow-soft);
+  color: #f4f7f8;
+}
+
+.modal-body {
+  background:
+    linear-gradient(
+        90deg,
+        var(--velodrome-cyan) 0 18%,
+        var(--velodrome-yellow) 18% 34%,
+        var(--velodrome-orange) 34% 78%,
+        var(--velodrome-red) 78% 100%
+      )
+      top / 100% 0.25rem no-repeat,
+    var(--velodrome-surface-solid);
+}
+
+.nav-tabs {
+  border-bottom-color: var(--velodrome-border);
+}
+
+.nav-tabs .nav-link {
+  border-radius: 0.45rem 0.45rem 0 0;
+  color: var(--velodrome-muted);
+}
+
+.nav-tabs .nav-link.active {
+  background-color: var(--velodrome-surface-solid);
+  border-color: var(--velodrome-border) var(--velodrome-border) var(--velodrome-surface-solid);
+  color: var(--velodrome-yellow);
+  font-weight: 900;
+}
+
+.nav-pills .nav-link {
+  color: #f4f7f8;
+}
+
+.nav-pills .nav-link.active {
+  background: linear-gradient(135deg, var(--velodrome-cyan), var(--velodrome-purple));
+  color: #ffffff;
+}
+
+.form-control,
+.form-select {
+  background-color: rgba(255, 255, 255, 0.075);
+  border: 1px solid var(--velodrome-border);
+  color: #f4f7f8;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--velodrome-orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 154, 61, 0.2);
+  color: #ffffff;
+}
+
+.form-control::placeholder {
+  color: rgba(244, 247, 248, 0.45);
+}
+
+.table {
+  --bs-table-bg: rgba(255, 255, 255, 0.055);
+  --bs-table-color: #f4f7f8;
+  background-color: rgba(255, 255, 255, 0.055);
+  border: 1px solid var(--velodrome-border);
+  box-shadow: var(--velodrome-shadow-soft);
+  color: #f4f7f8;
+  overflow: hidden;
+}
+
+.table > thead {
+  background-color: rgba(59, 180, 200, 0.12);
+  border-bottom: 3px solid var(--velodrome-orange);
+  color: #f4f7f8;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: rgba(59, 180, 200, 0.055);
+}
+
+.progress {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  height: 0.8rem;
+}
+
+/* Alerts */
+
+.alert-success {
+  background-color: rgba(59, 180, 200, 0.12);
+  border-color: rgba(59, 180, 200, 0.3);
+  color: #baf6ff;
+}
+
+.alert-info {
+  background-color: rgba(59, 180, 200, 0.12);
+  border-color: rgba(59, 180, 200, 0.28);
+  color: #baf6ff;
+}
+
+.alert-warning {
+  background-color: rgba(255, 200, 69, 0.14);
+  border-color: rgba(255, 200, 69, 0.34);
+  color: #ffe8a3;
+}
+
+.alert-danger {
+  background-color: rgba(255, 115, 95, 0.12);
+  border-color: rgba(255, 115, 95, 0.32);
+  color: #ffc4bb;
+}
+
+blockquote {
+  border-left-color: var(--velodrome-orange);
+}
+
+code {
+  color: var(--velodrome-pink);
+}
+
+/* Footer */
+
+.footer,
+.velodrome-footer {
+  background-color: rgba(5, 8, 22, 0.72);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+.footer a,
+.footer small {
+  color: rgba(244, 247, 248, 0.55) !important;
+}
+
+/* Animations */
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(24, 242, 178, 0.65);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(24, 242, 178, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(24, 242, 178, 0);
+  }
+}
+
+/* Responsive */
+
+@media (max-width: 767.98px) {
+  .hero-velodrome {
+    padding: 5rem 0 3.5rem;
+    min-height: auto;
+  }
+
+  .hero-stats,
+  .mission-card,
+  .challenge-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats div {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  .hero-stats div:last-child {
+    border-bottom: 0;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .jumbotron {
+    padding: 2.4rem 1rem;
+  }
+
+  .category-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .category-header::after {
+    width: 100%;
+  }
+
+  .challenge-button {
+    min-height: 7.25rem;
+  }
+}

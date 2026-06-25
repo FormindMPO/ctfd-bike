@@ -1,5 +1,25 @@
+$velodrome-orange: #f58220;
+$velodrome-cyan: #00a7c8;
+$velodrome-yellow: #ffb000;
+$velodrome-red: #e5452f;
+$velodrome-charcoal: #303437;
+$velodrome-gray: #6d6f73;
+$velodrome-surface: #ffffff;
+$velodrome-soft: #f6fafb;
+
 @use "bootstrap/scss/bootstrap" as * with (
-  $info: #5c728f
+  $primary: $velodrome-orange,
+  $secondary: $velodrome-gray,
+  $success: $velodrome-cyan,
+  $info: $velodrome-cyan,
+  $warning: $velodrome-yellow,
+  $danger: $velodrome-red,
+  $light: $velodrome-soft,
+  $dark: $velodrome-charcoal,
+  $body-bg: $velodrome-soft,
+  $body-color: $velodrome-charcoal,
+  $border-radius: 0.375rem,
+  $border-radius-lg: 0.5rem
 );
 
 @use "includes/components/table";
@@ -20,7 +40,7 @@
 h1,
 h2 {
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 0;
 }
 
 a {

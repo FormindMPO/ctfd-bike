@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block body_class %}velodrome-home{% endblock %}
+
+{% block content %}
+
+<section class="hero-velodrome">
+  <div class="hero-grid"></div>
+  <div class="hero-orbit hero-orbit-one"></div>
+  <div class="hero-orbit hero-orbit-two"></div>
+
+  <div class="container hero-content">
+    <div class="hero-kicker">
+      <span class="pulse-dot"></span>
+      {% trans %}2026 Edition · Saint-Quentin-en-Yvelines National Velodrome{% endtrans %}
+    </div>
+
+    <h1>
+      {% trans %}CTF [client] 2026{% endtrans %}
+      <span>{% trans %}Hack the track.{% endtrans %}</span>
+    </h1>
+
+    <p class="hero-intro">
+      {% trans %}
+      As part of the Cycling World Cup, your company is responsible for securing
+      the industrial systems of one of the sites hosting the event.
+      {% endtrans %}
+    </p>
+
+    <p class="hero-subtitle">
+      {% trans %}
+      Industrial supervision, critical equipment, automation, exposed networks, and real-time pressure:
+      your teams must stay in control while the competition is in full swing.
+      {% endtrans %}
+    </p>
+
+    <div class="hero-actions">
+      {% if authed() %}
+        <a class="btn btn-primary btn-lg hero-btn" href="{{ url_for('challenges.listing') }}">
+          {% trans %}Enter the arena{% endtrans %}
+        </a>
+
+        <a class="btn btn-outline-light btn-lg hero-btn-secondary" href="{{ url_for('scoreboard.listing') }}">
+          {% trans %}View scoreboard{% endtrans %}
+        </a>
+      {% else %}
+        <a class="btn btn-primary btn-lg hero-btn" href="{{ url_for('auth.register') }}">
+          {% trans %}Join the CTF{% endtrans %}
+        </a>
+
+        <a class="btn btn-outline-light btn-lg hero-btn-secondary" href="{{ url_for('auth.login') }}">
+          {% trans %}Log in{% endtrans %}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <strong>2026</strong>
+        <span>{% trans %}New edition{% endtrans %}</span>
+      </div>
+
+      <div>
+        <strong>SQY</strong>
+        <span>{% trans %}National Velodrome{% endtrans %}</span>
+      </div>
+
+      <div>
+        <strong>ICS</strong>
+        <span>{% trans %}Industrial systems{% endtrans %}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mission-section">
+  <div class="container">
+    <div class="mission-card">
+      <div>
+        <p class="section-label">
+          {% trans %}Your mission{% endtrans %}
+        </p>
+
+        <h2>
+          {% trans %}
+          Secure the critical infrastructure of a cycling competition venue.
+          {% endtrans %}
+        </h2>
+      </div>
+
+      <div class="mission-copy">
+        <p>
+          {% trans %}
+          The velodrome is running at full speed. Supervision systems are reporting weak signals,
+          industrial equipment is communicating, access points are multiplying, and every second counts.
+          {% endtrans %}
+        </p>
+
+        <p>
+          {% trans %}
+          Analysis, exploitation, investigation, hardening: prove that your team can keep a cool head
+          when the pressure rises on the track.
+          {% endtrans %}
+        </p>
+      </div>
+    </div>
+
+    <div class="challenge-cards">
+      <article>
+        <span>01</span>
+        <h3>{% trans %}Reconnaissance{% endtrans %}</h3>
+        <p>
+          {% trans %}
+          Map the environment, identify exposed services, and understand the attack surface.
+          {% endtrans %}
+        </p>
+      </article>
+
+      <article>
+        <span>02</span>
+        <h3>{% trans %}Exploitation{% endtrans %}</h3>
+        <p>
+          {% trans %}
+          Exploit application, network, or industrial weaknesses to progress through the scenario.
+          {% endtrans %}
+        </p>
+      </article>
+
+      <article>
+        <span>03</span>
+        <h3>{% trans %}Resilience{% endtrans %}</h3>
+        <p>
+          {% trans %}
+          Prioritize, secure, and keep critical systems under control all the way to the finish line.
+          {% endtrans %}
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

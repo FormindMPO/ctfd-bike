@@ -10,6 +10,7 @@
 
   {% block stylesheets %}
     {{ Assets.css("assets/scss/main.scss") }}
+    {{ Assets.css("assets/scss/velodrome.scss") }}
   {% endblock %}
 
   {{ Plugins.styles }}
@@ -39,7 +40,8 @@
 
   {{ Configs.theme_header }}
 </head>
-<body>
+
+<body class="{% block body_class %}{% endblock %}">
 {% include "components/navbar.html" %}
 
 <main role="main">

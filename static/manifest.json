@@ -117,7 +117,7 @@
     ]
   },
   "assets/js/color_mode_switcher.js": {
-    "file": "assets/color_mode_switcher.52334129.js",
+    "file": "assets/color_mode_switcher.e31d2233.js",
     "src": "assets/js/color_mode_switcher.js",
     "isEntry": true
   },
@@ -143,8 +143,13 @@
       "_index.1cf73b05.js"
     ]
   },
+  "assets/scss/velodrome.scss": {
+    "file": "assets/velodrome.d5c5b34a.css",
+    "src": "assets/scss/velodrome.scss",
+    "isEntry": true
+  },
   "assets/scss/main.scss": {
-    "file": "assets/main.e9ec7884.css",
+    "file": "assets/main.71e73d11.css",
     "src": "assets/scss/main.scss",
     "isEntry": true
   }
