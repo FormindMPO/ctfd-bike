@@ -196,7 +196,7 @@ h3 { font-size: 1.08rem; }
   color: #334155;
 }
 
-.field:nth-child(4) { grid-column: 1 / -1; }
+.field:nth-child(2) { grid-column: 1 / -1; }
 
 .field input {
   width: 100%;
@@ -323,50 +323,6 @@ h3 { font-size: 1.08rem; }
 }
 .pattern-swatch.aero { background: repeating-linear-gradient(90deg, #1d4ed8 0 12px, #facc15 12px 18px, #1d4ed8 18px 30px, #ef4444 30px 34px); }
 .pattern-swatch.solid { background: #1d4ed8; }
-
-.logo-tools { align-items: stretch; }
-
-.file-drop {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex: 1;
-  padding: 14px;
-  border: 1px dashed rgba(37, 99, 235, 0.55);
-  border-radius: var(--radius-md);
-  background: #eff6ff;
-  color: #1e3a8a;
-  cursor: pointer;
-}
-
-.file-drop input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.file-icon {
-  display: inline-grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  flex: 0 0 auto;
-  border-radius: 16px;
-  background: var(--brand);
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 900;
-}
-
-.file-drop strong, .file-drop small { display: block; }
-
-.file-drop small {
-  margin-top: 3px;
-  color: #475569;
-  font-weight: 700;
-}
 
 .action-row {
   flex-wrap: wrap;
@@ -615,17 +571,6 @@ h3 { font-size: 1.08rem; }
   overflow: hidden;
 }
 
-.logo-badge img {
-  display: none;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #fff;
-}
-
-.logo-badge.has-image img { display: block; }
-.logo-badge.has-image span { display: none; }
-
 .logo-badge span {
   color: #fff;
   font-size: 1.55rem;
@@ -740,7 +685,7 @@ h3 { font-size: 1.08rem; }
 
   .field-grid, .color-grid, .pattern-grid, .identity-card { grid-template-columns: 1fr; }
 
-  .field:nth-child(4), .identity-card > div:last-child { grid-column: auto; }
+  .field:nth-child(2), .identity-card > div:last-child { grid-column: auto; }
 
   .kit-stage { min-height: 420px; }
 
@@ -756,7 +701,6 @@ h3 { font-size: 1.08rem; }
   <div class="app-shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">Team icebreaker kit lab</p>
         <h1>Peloton Jersey Builder</h1>
         <p class="hero-copy">Design your squad identity before the race starts. Pick colors, patterns, names, a logo, and lock the kit when your team agrees.</p>
       </div>
@@ -778,10 +722,15 @@ h3 { font-size: 1.08rem; }
 
         <form id="kitForm" autocomplete="off">
           <div class="field-grid">
-            <label class="field"><span>Team name</span><input id="teamName" name="teamName" maxlength="56" placeholder="Chain Breakers" required></label>
-            <label class="field"><span>Rider name</span><input id="riderName" name="riderName" maxlength="22" placeholder="Captain Cipher" required></label>
-            <label class="field"><span>Race number</span><input id="raceNumber" name="raceNumber" inputmode="numeric" maxlength="3" placeholder="404"></label>
-            <label class="field"><span>Team motto</span><input id="teamMotto" name="teamMotto" maxlength="42" placeholder="Draft fast. Think faster."></label>
+            <label class="field">
+              <span>Team name</span>
+              <input id="teamName" name="teamName" maxlength="56" placeholder="Loaded from CTFd" required>
+            </label>
+
+            <label class="field">
+              <span>Team motto</span>
+              <input id="teamMotto" name="teamMotto" maxlength="42" placeholder="Draft fast. Think faster." required>
+            </label>
           </div>
 
           <div class="designer-block">
@@ -803,18 +752,6 @@ h3 { font-size: 1.08rem; }
               <label class="pattern-card"><input type="radio" name="pattern" value="checker"><span class="pattern-swatch checker"></span><span>Sprint Check</span></label>
               <label class="pattern-card"><input type="radio" name="pattern" value="aero"><span class="pattern-swatch aero"></span><span>Aero Lines</span></label>
               <label class="pattern-card"><input type="radio" name="pattern" value="solid"><span class="pattern-swatch solid"></span><span>Clean Podium</span></label>
-            </div>
-          </div>
-
-          <div class="designer-block">
-            <div class="block-title"><span class="step-dot">4</span><h3>Logo</h3></div>
-            <div class="logo-tools">
-              <label class="file-drop" for="logoUpload">
-                <input id="logoUpload" name="logoUpload" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp">
-                <span class="file-icon">+</span>
-                <span><strong>Upload team logo</strong><small>PNG, JPG, SVG, or WebP under 1 MB</small></span>
-              </label>
-              <button class="ghost-button" id="removeLogoButton" type="button">Use monogram</button>
             </div>
           </div>
 
@@ -866,21 +803,27 @@ h3 { font-size: 1.08rem; }
                 <path class="shorts-outline" d="M188 335 L332 335 L358 526 L305 526 L260 401 L215 526 L162 526 Z"></path>
               </g>
             </svg>
-            <div class="logo-badge" id="logoBadge" aria-label="Team logo preview"><img id="logoImage" alt="Uploaded team logo preview"><span id="logoMonogram">CB</span></div>
+            <div class="logo-badge" id="logoBadge" aria-label="Team monogram preview">
+              <span id="logoMonogram">CB</span>
+            </div>
           </div>
 
           <div class="identity-card">
             <div><span class="micro-label">Team</span><strong id="identityTeam">Chain Breakers</strong></div>
-            <div><span class="micro-label">Rider</span><strong id="identityRider">Captain Cipher</strong></div>
+            <div><span class="micro-label">Number</span><strong id="identityRace">404</strong></div>
             <div><span class="micro-label">Motto</span><strong id="identityMotto">Draft fast. Think faster.</strong></div>
           </div>
         </div>
 
         <div class="validation-card" id="validationCard">
-          <p class="section-kicker">Step 5</p>
-          <h3>Validation hook</h3>
-          <p>The button stores the selected kit locally, emits a browser event, and calls a hook function when one is provided. That makes it safe now and easy to connect later.</p>
-          <code>window.__CTF_JERSEY_VALIDATION_HOOK__</code>
+          <h3>Publish team jersey</h3>
+          <p>
+            The team captain can publish the jersey configuration and update the CTFd team name.
+            Once published, every team member will load the same jersey settings.
+          </p>
+          <button class="primary-button" id="publishJerseyButton" type="button">
+            Publish jersey config
+          </button>
         </div>
       </section>
     </main>
@@ -895,10 +838,15 @@ const STORAGE_KEYS = {
   lastValidated: "pelotonJerseyBuilder.lastValidated"
 };
 
+const CTFD_API_ENDPOINTS = {
+  currentTeam: "/api/v1/teams/me",
+  currentUser: "/api/v1/users/me",
+  user: (userId) => `/api/v1/users/${encodeURIComponent(userId)}`
+};
+
 const DEFAULT_DESIGN = {
   version: 1,
   teamName: "Chain Breakers",
-  riderName: "Captain Cipher",
   raceNumber: "404",
   teamMotto: "Draft fast. Think faster.",
   primaryColor: "#1d4ed8",
@@ -906,35 +854,46 @@ const DEFAULT_DESIGN = {
   accentColor: "#ef4444",
   shortsColor: "#111827",
   pattern: "bands",
-  logoDataUrl: "",
-  logoName: "",
   status: "draft",
   validationId: "",
   validatedAt: ""
 };
 
 const TEAM_NAMES = ["Chain Breakers", "Packet Peloton", "Cipher Cyclists", "Binary Breakaway", "The Draft Dodgers", "Hex Hill Hunters", "Pedal Pushers", "Spoke Signals", "Zero Day Sprinters", "Hashrate Heroes", "Crank Captains", "The Wheelie Good Team"];
-const RIDER_NAMES = ["Captain Cipher", "Sprint Sherlock", "Draft Goblin", "Beacon Rider", "Checksum Champ", "Climb Gremlin", "Wheel Wizard", "Packet Pirate", "Turbo Analyst", "Chain Whisperer"];
 const MOTTOS = ["Draft fast. Think faster.", "No hill too steep. No clue too weird.", "Ride together. Solve together.", "Spin legs. Spin locks.", "Eat climbs for breakfast.", "Follow the wheel, find the flag.", "One team, one cadence.", "Attack the hill. Crack the code."];
 const PALETTES = [["#1d4ed8", "#facc15", "#ef4444", "#111827"], ["#0f766e", "#ccfbf1", "#f97316", "#0f172a"], ["#7c3aed", "#f5d0fe", "#22c55e", "#18181b"], ["#dc2626", "#ffffff", "#111827", "#1f2937"], ["#0891b2", "#ecfeff", "#facc15", "#083344"], ["#65a30d", "#fef3c7", "#2563eb", "#172554"], ["#be123c", "#ffe4e6", "#14b8a6", "#312e81"], ["#4338ca", "#c7d2fe", "#f59e0b", "#020617"]];
 const PATTERNS = ["bands", "diagonal", "mountains", "checker", "aero", "solid"];
 const SVG_NS = "http://www.w3.org/2000/svg";
 const TEAM_NAME_MAX_LENGTH = 56;
+const TEAM_RACE_NUMBER_LENGTH = 3;
+const PATTERN_TO_CODE = {
+  bands: "b",
+  diagonal: "d",
+  mountains: "m",
+  checker: "c",
+  aero: "a",
+  solid: "s"
+};
+
+const CODE_TO_PATTERN = {
+  b: "bands",
+  d: "diagonal",
+  m: "mountains",
+  c: "checker",
+  a: "aero",
+  s: "solid"
+};
 const TEAM_NAMEPLATE = { centerX: 260, centerY: 296, minWidth: 122, maxWidth: 166, maxHeight: 58, paddingX: 12, paddingY: 8, maxLines: 3, minFontSize: 8.5, maxFontSize: 15, charWidthRatio: 0.62 };
 
 const elements = {
   form: document.querySelector("#kitForm"),
   previewCard: document.querySelector("#previewCard"),
   teamName: document.querySelector("#teamName"),
-  riderName: document.querySelector("#riderName"),
-  raceNumber: document.querySelector("#raceNumber"),
   teamMotto: document.querySelector("#teamMotto"),
   primaryColor: document.querySelector("#primaryColor"),
   secondaryColor: document.querySelector("#secondaryColor"),
   accentColor: document.querySelector("#accentColor"),
   shortsColor: document.querySelector("#shortsColor"),
-  logoUpload: document.querySelector("#logoUpload"),
-  removeLogoButton: document.querySelector("#removeLogoButton"),
   randomizeButton: document.querySelector("#randomizeButton"),
   formNote: document.querySelector("#formNote"),
   statusPill: document.querySelector("#statusPill"),
@@ -943,18 +902,19 @@ const elements = {
   svgRaceNumberLeft: document.querySelector("#svgRaceNumberLeft"),
   svgRaceNumberRight: document.querySelector("#svgRaceNumberRight"),
   identityTeam: document.querySelector("#identityTeam"),
-  identityRider: document.querySelector("#identityRider"),
+  identityRace: document.querySelector("#identityRace"),
   identityMotto: document.querySelector("#identityMotto"),
   logoBadge: document.querySelector("#logoBadge"),
-  logoImage: document.querySelector("#logoImage"),
   logoMonogram: document.querySelector("#logoMonogram"),
-  confettiPieceTemplate: document.querySelector("#confettiPieceTemplate")
+  confettiPieceTemplate: document.querySelector("#confettiPieceTemplate"),
+  publishJerseyButton: document.querySelector("#publishJerseyButton"),
 };
 
 let state = loadDraft();
 
 applyStateToForm();
 render();
+hydrateFromCtfdTeam();
 
 window.addEventListener("DOMContentLoaded", render);
 
@@ -971,22 +931,10 @@ elements.form.addEventListener("change", (event) => {
   }
 });
 
-elements.logoUpload.addEventListener("change", handleLogoUpload);
-
-elements.removeLogoButton.addEventListener("click", () => {
-  state.logoDataUrl = "";
-  state.logoName = "";
-  elements.logoUpload.value = "";
-  markDraft("Monogram restored. Upload a logo whenever your team is ready.");
-});
-
 elements.randomizeButton.addEventListener("click", () => {
   const palette = randomValue(PALETTES);
   state = {
     ...state,
-    teamName: randomValue(TEAM_NAMES),
-    riderName: randomValue(RIDER_NAMES),
-    raceNumber: String(randomInt(1, 999)).padStart(3, "0"),
     teamMotto: randomValue(MOTTOS),
     primaryColor: palette[0],
     secondaryColor: palette[1],
@@ -1001,7 +949,9 @@ elements.randomizeButton.addEventListener("click", () => {
   markDraft("Random kit generated. Tweak it or lock it for the team.");
   launchConfetti(24);
 });
-
+if (elements.publishJerseyButton) {
+  elements.publishJerseyButton.addEventListener("click", publishJerseyConfigToCtfd);
+}
 function loadDraft() {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.draft);
@@ -1012,26 +962,386 @@ function loadDraft() {
   }
 }
 
+async function hydrateFromCtfdTeam() {
+  try {
+    setNote("Loading your CTFd team information...", "neutral");
+
+    const team = await getCurrentCtfdTeam();
+    const publishedConfig = parseJerseyConfigFromTeam(team);
+
+    state = normalizeDesign({
+      ...state,
+      ...publishedConfig,
+      teamName: cleanText(team.name, state.teamName, TEAM_NAME_MAX_LENGTH),
+      raceNumber: createRaceNumberFromTeamId(team.id),
+      status: publishedConfig ? "locked" : "draft",
+      validationId: publishedConfig ? String(team.id || "") : "",
+      validatedAt: publishedConfig?.publishedAt || ""
+    });
+
+    applyStateToForm();
+    render();
+
+    if (publishedConfig) {
+      setNote(`Published team jersey loaded for ${state.teamName} #${state.raceNumber}.`, "success");
+    } else {
+      setNote(`CTFd team loaded: ${state.teamName} #${state.raceNumber}. No published jersey config yet.`, "success");
+    }
+  } catch (error) {
+    console.warn("Unable to load CTFd team data:", error);
+    setNote("Unable to load your CTFd team automatically. Manual editing is still available.", "error");
+  }
+}
+
+async function getCurrentCtfdTeam() {
+  const response = await fetch(CTFD_API_ENDPOINTS.currentTeam, {
+    method: "GET",
+    credentials: "same-origin",
+    headers: getCtfdHeaders()
+  });
+
+  const payload = await parseCtfdJsonResponse(response);
+
+  if (!payload.success || !payload.data) {
+    throw new Error("Invalid CTFd team payload.");
+  }
+
+  return payload.data;
+}
+
+async function getCurrentCtfdUser() {
+  const response = await fetch(CTFD_API_ENDPOINTS.currentUser, {
+    method: "GET",
+    credentials: "same-origin",
+    headers: getCtfdHeaders()
+  });
+
+  const payload = await parseCtfdJsonResponse(response);
+
+  if (!payload.success || !payload.data) {
+    throw new Error("Invalid CTFd user payload.");
+  }
+
+  return payload.data;
+}
+
+function buildPublishableJerseyConfig() {
+  updateStateFromForm();
+
+  return {
+    teamMotto: compactText(state.teamMotto, 42),
+    primaryColor: cleanColor(state.primaryColor, DEFAULT_DESIGN.primaryColor),
+    secondaryColor: cleanColor(state.secondaryColor, DEFAULT_DESIGN.secondaryColor),
+    accentColor: cleanColor(state.accentColor, DEFAULT_DESIGN.accentColor),
+    shortsColor: cleanColor(state.shortsColor, DEFAULT_DESIGN.shortsColor),
+    pattern: PATTERNS.includes(state.pattern) ? state.pattern : DEFAULT_DESIGN.pattern
+  };
+}
+
+function encodeJerseyConfig(config) {
+  const teamMotto = compactText(config.teamMotto, 42);
+
+  const colors = [
+    config.primaryColor,
+    config.secondaryColor,
+    config.accentColor,
+    config.shortsColor
+  ]
+    .map((color) => cleanColor(color, "#000000").replace("#", ""))
+    .join("");
+
+  const patternCode = PATTERN_TO_CODE[config.pattern] || PATTERN_TO_CODE[DEFAULT_DESIGN.pattern];
+
+  return `${teamMotto}|${colors}|${patternCode}`;
+}
+
+function decodeJerseyConfig(value) {
+  if (!value || typeof value !== "string") {
+    return null;
+  }
+
+  const parts = value.split("|");
+
+  if (parts.length !== 3) {
+    return null;
+  }
+
+  const teamMotto = parts[0] || DEFAULT_DESIGN.teamMotto;
+  const colors = parts[1] || "";
+  const patternCode = parts[2] || "b";
+
+  if (!/^[0-9a-fA-F]{24}$/.test(colors)) {
+    return null;
+  }
+
+  if (!CODE_TO_PATTERN[patternCode]) {
+    return null;
+  }
+
+  return {
+    version: 1,
+    teamMotto,
+    primaryColor: `#${colors.slice(0, 6)}`,
+    secondaryColor: `#${colors.slice(6, 12)}`,
+    accentColor: `#${colors.slice(12, 18)}`,
+    shortsColor: `#${colors.slice(18, 24)}`,
+    pattern: CODE_TO_PATTERN[patternCode]
+  };
+}
+
+function parseJerseyConfigFromTeam(team) {
+  try {
+    const config = decodeJerseyConfig(team.affiliation);
+
+    if (!config || config.version !== 1) {
+      return null;
+    }
+
+    return normalizeDesign({
+      ...DEFAULT_DESIGN,
+      ...config
+    });
+  } catch (error) {
+    console.warn("Unable to parse published jersey config:", error);
+    return null;
+  }
+}
+
+async function publishJerseyConfigToCtfd() {
+  try {
+    const currentTeam = await getCurrentCtfdTeam();
+    const currentUser = await getCurrentCtfdUser();
+
+    if (currentTeam.captain_id && currentUser.id && Number(currentTeam.captain_id) !== Number(currentUser.id)) {
+      const captainLabel = await getCurrentTeamCaptainLabel();
+      setNote(`Error: only the team captain can publish the jersey config. Current captain: ${captainLabel}.`, "error");
+      return;
+    }
+
+    updateStateFromForm();
+
+    const newTeamName = cleanTeamNameForCtfd(elements.teamName.value);
+
+    if (!newTeamName) {
+      setNote("Error: team name cannot be empty.", "error");
+      return;
+    }
+
+    const config = buildPublishableJerseyConfig();
+    const encodedConfig = encodeJerseyConfig(config);
+
+    if (encodedConfig.length > 128) {
+      setNote(`Error: jersey config is too long for CTFd affiliation field (${encodedConfig.length}/128). Shorten the team motto.`, "error");
+      return;
+    }
+
+    elements.publishJerseyButton.disabled = true;
+    elements.publishJerseyButton.textContent = "Publishing...";
+
+    setNote("Publishing jersey config to CTFd...", "neutral");
+
+    const response = await fetch(CTFD_API_ENDPOINTS.currentTeam, {
+      method: "PATCH",
+      credentials: "same-origin",
+      headers: getCtfdHeaders({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({
+        name: newTeamName,
+        affiliation: encodedConfig
+      })
+    });
+
+    const payload = await parseCtfdJsonResponse(response);
+
+    if (!payload.success || !payload.data) {
+      throw new Error("CTFd rejected the jersey config update.");
+    }
+
+    const updatedTeam = payload.data;
+    const publishedConfig = parseJerseyConfigFromTeam(updatedTeam);
+
+    state = normalizeDesign({
+      ...state,
+      ...publishedConfig,
+      teamName: cleanText(updatedTeam.name, newTeamName, TEAM_NAME_MAX_LENGTH),
+      raceNumber: createRaceNumberFromTeamId(updatedTeam.id),
+      status: "locked",
+      validationId: String(updatedTeam.id || ""),
+      validatedAt: new Date().toISOString()
+    });
+
+    applyStateToForm();
+    render();
+    saveValidatedDesign(updatedTeam);
+
+    setNote(`Team name and jersey config published: ${state.teamName}.`, "success");
+    launchConfetti(32);
+  } catch (error) {
+    console.error("Unable to publish jersey config:", error);
+
+    const captainLabel = await getCurrentTeamCaptainLabel();
+
+    setNote(`Error: jersey config could not be published. You may need to be the team captain. Current captain: ${captainLabel}.`, "error");
+  } finally {
+    elements.publishJerseyButton.disabled = false;
+    elements.publishJerseyButton.textContent = "Publish jersey config";
+  }
+}
+
+async function getCtfdUser(userId) {
+  if (!userId) {
+    return null;
+  }
+
+  const response = await fetch(CTFD_API_ENDPOINTS.user(userId), {
+    method: "GET",
+    credentials: "same-origin",
+    headers: getCtfdHeaders()
+  });
+
+  const payload = await parseCtfdJsonResponse(response);
+
+  if (!payload.success || !payload.data) {
+    return null;
+  }
+
+  return payload.data;
+}
+
+async function getCurrentTeamCaptainLabel() {
+  try {
+    const team = await getCurrentCtfdTeam();
+
+    if (!team.captain_id) {
+      return "the team captain";
+    }
+
+    const captain = await getCtfdUser(team.captain_id);
+
+    if (!captain) {
+      return `the team captain, user ID ${team.captain_id}`;
+    }
+
+    if (captain.email && captain.name) {
+      return `${captain.name} (${captain.email})`;
+    }
+
+    if (captain.name) {
+      return captain.name;
+    }
+
+    if (captain.email) {
+      return captain.email;
+    }
+
+    return `the team captain, user ID ${team.captain_id}`;
+  } catch (error) {
+    console.warn("Unable to resolve CTFd team captain:", error);
+    return "the team captain";
+  }
+}
+
+async function parseCtfdJsonResponse(response) {
+  let payload = null;
+
+  try {
+    payload = await response.json();
+  } catch {
+    payload = null;
+  }
+
+  if (!response.ok) {
+    const message = payload && payload.errors
+      ? JSON.stringify(payload.errors)
+      : `CTFd API returned HTTP ${response.status}`;
+
+    throw new Error(message);
+  }
+
+  return payload;
+}
+
+function getCtfdHeaders(extraHeaders = {}) {
+  const headers = {
+    "Accept": "application/json",
+    ...extraHeaders
+  };
+
+  const csrfToken = getCtfdCsrfToken();
+
+  if (csrfToken) {
+    headers["CSRF-Token"] = csrfToken;
+    headers["X-CSRFToken"] = csrfToken;
+  }
+
+  return headers;
+}
+
+function getCtfdCsrfToken() {
+  return (
+    window.csrfNonce ||
+    window.init?.csrfNonce ||
+    document.querySelector('meta[name="csrf-token"]')?.getAttribute("content") ||
+    document.querySelector('input[name="nonce"]')?.value ||
+    document.querySelector('input[name="csrf_token"]')?.value ||
+    ""
+  );
+}
+
+function saveValidatedDesign(updatedTeam) {
+  const validatedDesign = {
+    ...state,
+    ctfdTeamId: updatedTeam.id || null,
+    ctfdTeamName: updatedTeam.name || state.teamName,
+    ctfdStorageField: "affiliation",
+    validatedAt: state.validatedAt
+  };
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.validated);
+    const previousDesigns = raw ? JSON.parse(raw) : [];
+
+    const nextDesigns = Array.isArray(previousDesigns)
+      ? [validatedDesign, ...previousDesigns].slice(0, 10)
+      : [validatedDesign];
+
+    localStorage.setItem(STORAGE_KEYS.validated, JSON.stringify(nextDesigns));
+    localStorage.setItem(STORAGE_KEYS.lastValidated, JSON.stringify(validatedDesign));
+  } catch {
+    localStorage.setItem(STORAGE_KEYS.lastValidated, JSON.stringify(validatedDesign));
+  }
+}
+
+function createRaceNumberFromTeamId(teamId) {
+  const digits = String(teamId || "").replace(/\D/g, "");
+
+  if (!digits) {
+    return state.raceNumber || DEFAULT_DESIGN.raceNumber;
+  }
+
+  return digits.slice(-TEAM_RACE_NUMBER_LENGTH).padStart(TEAM_RACE_NUMBER_LENGTH, "0");
+}
+
 function applyStateToForm() {
   elements.teamName.value = state.teamName;
-  elements.riderName.value = state.riderName;
-  elements.raceNumber.value = state.raceNumber;
   elements.teamMotto.value = state.teamMotto;
   elements.primaryColor.value = state.primaryColor;
   elements.secondaryColor.value = state.secondaryColor;
   elements.accentColor.value = state.accentColor;
   elements.shortsColor.value = state.shortsColor;
+
   const patternInput = elements.form.querySelector(`input[name="pattern"][value="${state.pattern}"]`);
   if (patternInput) patternInput.checked = true;
 }
 
 function updateStateFromForm() {
   const formData = new FormData(elements.form);
+
   state = normalizeDesign({
     ...state,
-    teamName: String(formData.get("teamName") || ""),
-    riderName: String(formData.get("riderName") || ""),
-    raceNumber: String(formData.get("raceNumber") || ""),
+    teamName: String(formData.get("teamName") || state.teamName),
+    raceNumber: state.raceNumber,
     teamMotto: String(formData.get("teamMotto") || ""),
     primaryColor: String(formData.get("primaryColor") || DEFAULT_DESIGN.primaryColor),
     secondaryColor: String(formData.get("secondaryColor") || DEFAULT_DESIGN.secondaryColor),
@@ -1041,12 +1351,18 @@ function updateStateFromForm() {
   });
 }
 
+function cleanTeamNameForCtfd(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, TEAM_NAME_MAX_LENGTH);
+}
+
 function normalizeDesign(design) {
   return {
     ...DEFAULT_DESIGN,
     ...design,
     teamName: cleanText(design.teamName, DEFAULT_DESIGN.teamName, TEAM_NAME_MAX_LENGTH),
-    riderName: cleanText(design.riderName, DEFAULT_DESIGN.riderName, 22),
     raceNumber: cleanRaceNumber(design.raceNumber),
     teamMotto: cleanText(design.teamMotto, DEFAULT_DESIGN.teamMotto, 42),
     primaryColor: cleanColor(design.primaryColor, DEFAULT_DESIGN.primaryColor),
@@ -1054,12 +1370,18 @@ function normalizeDesign(design) {
     accentColor: cleanColor(design.accentColor, DEFAULT_DESIGN.accentColor),
     shortsColor: cleanColor(design.shortsColor, DEFAULT_DESIGN.shortsColor),
     pattern: PATTERNS.includes(design.pattern) ? design.pattern : DEFAULT_DESIGN.pattern,
-    logoDataUrl: typeof design.logoDataUrl === "string" ? design.logoDataUrl : "",
-    logoName: cleanText(design.logoName, "", 80),
     status: design.status === "locked" ? "locked" : "draft",
     validationId: cleanText(design.validationId, "", 24),
     validatedAt: cleanText(design.validatedAt, "", 40)
   };
+}
+
+function compactText(value, maxLength) {
+  return String(value || "")
+    .replace(/\|/g, "/")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLength);
 }
 
 function cleanText(value, fallback, maxLength) {
@@ -1068,7 +1390,7 @@ function cleanText(value, fallback, maxLength) {
 }
 
 function cleanRaceNumber(value) {
-  const digits = String(value || "").replace(/\D/g, "").slice(0, 3);
+  const digits = String(value || "").replace(/\D/g, "").slice(0, TEAM_RACE_NUMBER_LENGTH);
   return digits || DEFAULT_DESIGN.raceNumber;
 }
 
@@ -1087,17 +1409,9 @@ function render() {
   elements.svgRaceNumberLeft.textContent = state.raceNumber;
   elements.svgRaceNumberRight.textContent = state.raceNumber;
   elements.identityTeam.textContent = state.teamName;
-  elements.identityRider.textContent = state.riderName;
+  elements.identityRace.textContent = state.raceNumber;
   elements.identityMotto.textContent = state.teamMotto;
   elements.logoMonogram.textContent = createMonogram(state.teamName);
-
-  if (state.logoDataUrl) {
-    elements.logoImage.src = state.logoDataUrl;
-    elements.logoBadge.classList.add("has-image");
-  } else {
-    elements.logoImage.removeAttribute("src");
-    elements.logoBadge.classList.remove("has-image");
-  }
 
   elements.statusPill.textContent = state.status === "locked" ? "Locked" : "Draft";
   elements.statusPill.classList.toggle("is-locked", state.status === "locked");
@@ -1217,35 +1531,7 @@ function setNote(message, type = "neutral") {
 function saveDraft() {
   try {
     localStorage.setItem(STORAGE_KEYS.draft, JSON.stringify(state));
-  } catch {
-    try {
-      localStorage.setItem(STORAGE_KEYS.draft, JSON.stringify({ ...state, logoDataUrl: "", logoName: "" }));
-    } catch {}
-  }
-}
-
-function handleLogoUpload(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-  const allowedTypes = ["image/png", "image/jpeg", "image/svg+xml", "image/webp"];
-  if (!allowedTypes.includes(file.type)) {
-    setNote("Please upload a PNG, JPG, SVG, or WebP image.", "error");
-    elements.logoUpload.value = "";
-    return;
-  }
-  if (file.size > 1024 * 1024) {
-    setNote("Please upload an image below 1 MB.", "error");
-    elements.logoUpload.value = "";
-    return;
-  }
-  const reader = new FileReader();
-  reader.addEventListener("load", () => {
-    state.logoDataUrl = String(reader.result || "");
-    state.logoName = file.name;
-    markDraft("Logo uploaded. Your kit just got a signature look.");
-  });
-  reader.addEventListener("error", () => setNote("Logo upload failed. Please try another image.", "error"));
-  reader.readAsDataURL(file);
+  } catch {}
 }
 
 function launchConfetti(count = 32) {
