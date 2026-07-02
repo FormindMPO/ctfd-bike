@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Peloton Jersey Builder</title>
-  <meta name="description" content="A playful team icebreaker app for designing a cycling CTF team jersey and bib shorts.">
+  <title data-i18n="jersey.meta.title">Peloton Jersey Builder</title>
+  <meta name="description" content="A playful team icebreaker app for designing a cycling CTF team jersey and bib shorts." data-i18n-content="jersey.meta.description">
   <style>
 :root {
   --bg: #07111f;
@@ -701,10 +701,10 @@ h3 { font-size: 1.08rem; }
   <div class="app-shell">
     <header class="hero">
       <div>
-        <h1>Peloton Jersey Builder</h1>
-        <p class="hero-copy">Design your squad identity before the race starts. Pick colors, patterns, names, a logo, and lock the kit when your team agrees.</p>
+        <h1 data-i18n="jersey.hero.title">Peloton Jersey Builder</h1>
+        <p class="hero-copy" data-i18n="jersey.hero.copy">Design your squad identity before the race starts. Pick colors, patterns, names, a logo, and lock the kit when your team agrees.</p>
       </div>
-      <div class="hero-badge" aria-label="Cycling CTF badge">
+      <div class="hero-badge" aria-label="Cycling CTF badge" data-i18n-aria-label="jersey.hero.badgeLabel">
         <span class="wheel"></span>
         <span class="bolt">CTF</span>
       </div>
@@ -714,49 +714,49 @@ h3 { font-size: 1.08rem; }
       <section class="panel configurator" aria-labelledby="builder-title">
         <div class="panel-heading">
           <div>
-            <p class="section-kicker">Step 1</p>
-            <h2 id="builder-title">Build the team kit</h2>
+            <p class="section-kicker" data-i18n="jersey.builder.step1">Step 1</p>
+            <h2 id="builder-title" data-i18n="jersey.builder.title">Build the team kit</h2>
           </div>
-          <button class="ghost-button" id="randomizeButton" type="button">Surprise me</button>
+          <button class="ghost-button" id="randomizeButton" type="button" data-i18n="jersey.builder.randomize">Surprise me</button>
         </div>
 
         <form id="kitForm" autocomplete="off">
           <div class="field-grid">
             <label class="field">
-              <span>Team name</span>
-              <input id="teamName" name="teamName" maxlength="56" placeholder="Loaded from CTFd" required>
+              <span data-i18n="jersey.field.teamName">Team name</span>
+              <input id="teamName" name="teamName" maxlength="56" placeholder="Loaded from CTFd" data-i18n-placeholder="jersey.field.teamNamePlaceholder" required>
             </label>
 
             <label class="field">
-              <span>Team motto</span>
-              <input id="teamMotto" name="teamMotto" maxlength="42" placeholder="Draft fast. Think faster." required>
+              <span data-i18n="jersey.field.teamMotto">Team motto</span>
+              <input id="teamMotto" name="teamMotto" maxlength="42" placeholder="Draft fast. Think faster." data-i18n-placeholder="jersey.field.teamMottoPlaceholder" required>
             </label>
           </div>
 
           <div class="designer-block">
-            <div class="block-title"><span class="step-dot">2</span><h3>Colors</h3></div>
+            <div class="block-title"><span class="step-dot">2</span><h3 data-i18n="jersey.colors.title">Colors</h3></div>
             <div class="color-grid">
-              <label class="color-field"><span>Jersey base</span><input id="primaryColor" name="primaryColor" type="color" value="#1d4ed8"></label>
-              <label class="color-field"><span>Jersey panel</span><input id="secondaryColor" name="secondaryColor" type="color" value="#facc15"></label>
-              <label class="color-field"><span>Accent</span><input id="accentColor" name="accentColor" type="color" value="#ef4444"></label>
-              <label class="color-field"><span>Bib shorts</span><input id="shortsColor" name="shortsColor" type="color" value="#111827"></label>
+              <label class="color-field"><span data-i18n="jersey.colors.base">Jersey base</span><input id="primaryColor" name="primaryColor" type="color" value="#1d4ed8"></label>
+              <label class="color-field"><span data-i18n="jersey.colors.panel">Jersey panel</span><input id="secondaryColor" name="secondaryColor" type="color" value="#facc15"></label>
+              <label class="color-field"><span data-i18n="jersey.colors.accent">Accent</span><input id="accentColor" name="accentColor" type="color" value="#ef4444"></label>
+              <label class="color-field"><span data-i18n="jersey.colors.shorts">Bib shorts</span><input id="shortsColor" name="shortsColor" type="color" value="#111827"></label>
             </div>
           </div>
 
           <div class="designer-block">
-            <div class="block-title"><span class="step-dot">3</span><h3>Pattern</h3></div>
-            <div class="pattern-grid" role="radiogroup" aria-label="Jersey pattern">
-              <label class="pattern-card"><input type="radio" name="pattern" value="bands" checked><span class="pattern-swatch bands"></span><span>Climb Bands</span></label>
-              <label class="pattern-card"><input type="radio" name="pattern" value="diagonal"><span class="pattern-swatch diagonal"></span><span>Breakaway Slash</span></label>
-              <label class="pattern-card"><input type="radio" name="pattern" value="mountains"><span class="pattern-swatch mountains"></span><span>Mountain Stage</span></label>
-              <label class="pattern-card"><input type="radio" name="pattern" value="checker"><span class="pattern-swatch checker"></span><span>Sprint Check</span></label>
-              <label class="pattern-card"><input type="radio" name="pattern" value="aero"><span class="pattern-swatch aero"></span><span>Aero Lines</span></label>
-              <label class="pattern-card"><input type="radio" name="pattern" value="solid"><span class="pattern-swatch solid"></span><span>Clean Podium</span></label>
+            <div class="block-title"><span class="step-dot">3</span><h3 data-i18n="jersey.pattern.title">Pattern</h3></div>
+            <div class="pattern-grid" role="radiogroup" aria-label="Jersey pattern" data-i18n-aria-label="jersey.pattern.groupLabel">
+              <label class="pattern-card"><input type="radio" name="pattern" value="bands" checked><span class="pattern-swatch bands"></span><span data-i18n="jersey.pattern.bands">Climb Bands</span></label>
+              <label class="pattern-card"><input type="radio" name="pattern" value="diagonal"><span class="pattern-swatch diagonal"></span><span data-i18n="jersey.pattern.diagonal">Breakaway Slash</span></label>
+              <label class="pattern-card"><input type="radio" name="pattern" value="mountains"><span class="pattern-swatch mountains"></span><span data-i18n="jersey.pattern.mountains">Mountain Stage</span></label>
+              <label class="pattern-card"><input type="radio" name="pattern" value="checker"><span class="pattern-swatch checker"></span><span data-i18n="jersey.pattern.checker">Sprint Check</span></label>
+              <label class="pattern-card"><input type="radio" name="pattern" value="aero"><span class="pattern-swatch aero"></span><span data-i18n="jersey.pattern.aero">Aero Lines</span></label>
+              <label class="pattern-card"><input type="radio" name="pattern" value="solid"><span class="pattern-swatch solid"></span><span data-i18n="jersey.pattern.solid">Clean Podium</span></label>
             </div>
           </div>
 
           <div class="action-row"></div>
-          <p class="form-note" id="formNote" role="status" aria-live="polite">Draft mode active. Validation is local and harmless for now.</p>
+          <p class="form-note" id="formNote" role="status" aria-live="polite" data-i18n="jersey.note.initial">Draft mode active. Validation is local and harmless for now.</p>
         </form>
       </section>
 
@@ -764,16 +764,16 @@ h3 { font-size: 1.08rem; }
         <div class="preview-card" id="previewCard" data-pattern="bands">
           <div class="preview-header">
             <div>
-              <p class="section-kicker">Live preview</p>
-              <h2 id="preview-title">Race-ready identity</h2>
+              <p class="section-kicker" data-i18n="jersey.preview.kicker">Live preview</p>
+              <h2 id="preview-title" data-i18n="jersey.preview.title">Race-ready identity</h2>
             </div>
             <span class="status-pill" id="statusPill">Draft</span>
           </div>
 
           <div class="kit-stage" id="kitStage">
             <svg class="kit-svg" viewBox="0 0 520 620" role="img" aria-labelledby="kitTitle kitDesc">
-              <title id="kitTitle">Cycling jersey and bib shorts preview</title>
-              <desc id="kitDesc">A customizable cycling kit with team colors, pattern, logo, name, and race number.</desc>
+              <title id="kitTitle" data-i18n="jersey.svg.title">Cycling jersey and bib shorts preview</title>
+              <desc id="kitDesc" data-i18n="jersey.svg.description">A customizable cycling kit with team colors, pattern, logo, name, and race number.</desc>
               <defs>
                 <clipPath id="jerseyClip"><path d="M157 80 L222 48 L260 89 L298 48 L363 80 L420 176 L375 209 L346 164 L346 344 L174 344 L174 164 L145 209 L100 176 Z"></path></clipPath>
                 <clipPath id="shortsClip"><path d="M188 335 L332 335 L358 526 L305 526 L260 401 L215 526 L162 526 Z"></path></clipPath>
@@ -803,25 +803,25 @@ h3 { font-size: 1.08rem; }
                 <path class="shorts-outline" d="M188 335 L332 335 L358 526 L305 526 L260 401 L215 526 L162 526 Z"></path>
               </g>
             </svg>
-            <div class="logo-badge" id="logoBadge" aria-label="Team monogram preview">
+            <div class="logo-badge" id="logoBadge" aria-label="Team monogram preview" data-i18n-aria-label="jersey.preview.monogramLabel">
               <span id="logoMonogram">CB</span>
             </div>
           </div>
 
           <div class="identity-card">
-            <div><span class="micro-label">Team</span><strong id="identityTeam">Chain Breakers</strong></div>
-            <div><span class="micro-label">Number</span><strong id="identityRace">404</strong></div>
-            <div><span class="micro-label">Motto</span><strong id="identityMotto">Draft fast. Think faster.</strong></div>
+            <div><span class="micro-label" data-i18n="jersey.identity.team">Team</span><strong id="identityTeam">Chain Breakers</strong></div>
+            <div><span class="micro-label" data-i18n="jersey.identity.number">Number</span><strong id="identityRace">404</strong></div>
+            <div><span class="micro-label" data-i18n="jersey.identity.motto">Motto</span><strong id="identityMotto">Draft fast. Think faster.</strong></div>
           </div>
         </div>
 
         <div class="validation-card" id="validationCard">
-          <h3>Publish team jersey</h3>
-          <p>
+          <h3 data-i18n="jersey.publish.title">Publish team jersey</h3>
+          <p data-i18n="jersey.publish.copy">
             The team captain can publish the jersey configuration and update the CTFd team name.
             Once published, every team member will load the same jersey settings.
           </p>
-          <button class="primary-button" id="publishJerseyButton" type="button">
+          <button class="primary-button" id="publishJerseyButton" type="button" data-i18n="jersey.publish.button">
             Publish jersey config
           </button>
         </div>
@@ -832,6 +832,197 @@ h3 { font-size: 1.08rem; }
   <template id="confettiPieceTemplate"><span class="confetti-piece"></span></template>
 
   <script>
+const translations = {
+  en: {
+    "meta.title": "Peloton Jersey Builder",
+    "meta.description": "A playful team icebreaker app for designing a cycling CTF team jersey and bib shorts.",
+    "hero.title": "Peloton Jersey Builder",
+    "hero.copy": "Design your squad identity before the race starts. Pick colors, patterns, names, a logo, and lock the kit when your team agrees.",
+    "hero.badgeLabel": "Cycling CTF badge",
+    "builder.step1": "Step 1",
+    "builder.title": "Build the team kit",
+    "builder.randomize": "Surprise me",
+    "field.teamName": "Team name",
+    "field.teamNamePlaceholder": "Loaded from CTFd",
+    "field.teamMotto": "Team motto",
+    "field.teamMottoPlaceholder": "Draft fast. Think faster.",
+    "colors.title": "Colors",
+    "colors.base": "Jersey base",
+    "colors.panel": "Jersey panel",
+    "colors.accent": "Accent",
+    "colors.shorts": "Bib shorts",
+    "pattern.title": "Pattern",
+    "pattern.groupLabel": "Jersey pattern",
+    "pattern.bands": "Climb Bands",
+    "pattern.diagonal": "Breakaway Slash",
+    "pattern.mountains": "Mountain Stage",
+    "pattern.checker": "Sprint Check",
+    "pattern.aero": "Aero Lines",
+    "pattern.solid": "Clean Podium",
+    "note.initial": "Draft mode active. Validation is local and harmless for now.",
+    "preview.kicker": "Live preview",
+    "preview.title": "Race-ready identity",
+    "preview.monogramLabel": "Team monogram preview",
+    "svg.title": "Cycling jersey and bib shorts preview",
+    "svg.description": "A customizable cycling kit with team colors, pattern, logo, name, and race number.",
+    "identity.team": "Team",
+    "identity.number": "Number",
+    "identity.motto": "Motto",
+    "publish.title": "Publish team jersey",
+    "publish.copy": "The team captain can publish the jersey configuration and update the CTFd team name. Once published, every team member will load the same jersey settings.",
+    "publish.button": "Publish jersey config",
+    "publish.pending": "Publishing...",
+    "status.draft": "Draft",
+    "status.locked": "Locked",
+    "note.draftSaved": "Draft saved locally. Keep refining your squad identity.",
+    "note.patternUpdated": "Pattern updated. The peloton is watching.",
+    "note.randomized": "Random kit generated. Tweak it or lock it for the team.",
+    "note.loadingTeam": "Loading your CTFd team information...",
+    "note.publishedLoaded": "Published team jersey loaded for {teamName} #{raceNumber}.",
+    "note.teamLoaded": "CTFd team loaded: {teamName} #{raceNumber}. No published jersey config yet.",
+    "note.teamLoadFailed": "Unable to load your CTFd team automatically. Manual editing is still available.",
+    "note.onlyCaptain": "Error: only the team captain can publish the jersey config. Current captain: {captainLabel}.",
+    "note.emptyTeamName": "Error: team name cannot be empty.",
+    "note.configTooLong": "Error: jersey config is too long for CTFd affiliation field ({length}/128). Shorten the team motto.",
+    "note.publishing": "Publishing jersey config to CTFd...",
+    "note.published": "Team name and jersey config published: {teamName}.",
+    "note.publishFailed": "Error: jersey config could not be published. You may need to be the team captain. Current captain: {captainLabel}.",
+    "captain.fallback": "the team captain",
+    "captain.withUserId": "the team captain, user ID {userId}"
+  },
+  fr: {
+    "meta.title": "Créateur de maillot du peloton",
+    "meta.description": "Une application brise-glace pour créer le maillot et le cuissard d'une équipe CTF cycliste.",
+    "hero.title": "Créateur de maillot du peloton",
+    "hero.copy": "Créez l'identité de votre équipe avant le départ. Choisissez les couleurs, les motifs, le nom, le logo, puis verrouillez le kit quand tout le monde est d'accord.",
+    "hero.badgeLabel": "Badge CTF cyclisme",
+    "builder.step1": "Étape 1",
+    "builder.title": "Composer le kit d'équipe",
+    "builder.randomize": "Surprends-moi",
+    "field.teamName": "Nom d'équipe",
+    "field.teamNamePlaceholder": "Chargé depuis CTFd",
+    "field.teamMotto": "Devise d'équipe",
+    "field.teamMottoPlaceholder": "Drafter vite. Réfléchir plus vite.",
+    "colors.title": "Couleurs",
+    "colors.base": "Base du maillot",
+    "colors.panel": "Panneau du maillot",
+    "colors.accent": "Accent",
+    "colors.shorts": "Cuissard",
+    "pattern.title": "Motif",
+    "pattern.groupLabel": "Motif du maillot",
+    "pattern.bands": "Bandes d'ascension",
+    "pattern.diagonal": "Échappée diagonale",
+    "pattern.mountains": "Étape de montagne",
+    "pattern.checker": "Damier de sprint",
+    "pattern.aero": "Lignes aéro",
+    "pattern.solid": "Podium épuré",
+    "note.initial": "Mode brouillon actif. La validation reste locale et sans risque pour l'instant.",
+    "preview.kicker": "Aperçu live",
+    "preview.title": "Identité prête pour la course",
+    "preview.monogramLabel": "Aperçu du monogramme d'équipe",
+    "svg.title": "Aperçu du maillot cycliste et du cuissard",
+    "svg.description": "Un kit cycliste personnalisable avec couleurs, motif, logo, nom d'équipe et numéro de course.",
+    "identity.team": "Équipe",
+    "identity.number": "Numéro",
+    "identity.motto": "Devise",
+    "publish.title": "Sauvegarder le maillot d'équipe",
+    "publish.copy": "Le capitaine peut publier la configuration du maillot et mettre à jour le nom d'équipe CTFd. Une fois publiée, tous les membres chargeront les mêmes réglages.",
+    "publish.button": "Sauvegarder la configuration du maillot",
+    "publish.pending": "Publication...",
+    "status.draft": "Brouillon",
+    "status.locked": "Verrouillé",
+    "note.draftSaved": "Brouillon enregistré localement. Continuez à affiner l'identité de l'équipe.",
+    "note.patternUpdated": "Motif mis à jour. Le peloton observe.",
+    "note.randomized": "Kit aléatoire généré. Ajustez-le ou verrouillez-le pour l'équipe.",
+    "note.loadingTeam": "Chargement des informations de votre équipe CTFd...",
+    "note.publishedLoaded": "Maillot d'équipe publié chargé pour {teamName} #{raceNumber}.",
+    "note.teamLoaded": "Équipe CTFd chargée : {teamName} #{raceNumber}. Aucun maillot publié pour l'instant.",
+    "note.teamLoadFailed": "Impossible de charger automatiquement votre équipe CTFd. L'édition manuelle reste disponible.",
+    "note.onlyCaptain": "Erreur : seul le capitaine de l'équipe peut publier la configuration du maillot. Capitaine actuel : {captainLabel}.",
+    "note.emptyTeamName": "Erreur : le nom d'équipe ne peut pas être vide.",
+    "note.configTooLong": "Erreur : la configuration du maillot est trop longue pour le champ affiliation de CTFd ({length}/128). Raccourcissez la devise.",
+    "note.publishing": "Publication de la configuration du maillot vers CTFd...",
+    "note.published": "Nom d'équipe et configuration du maillot publiés : {teamName}.",
+    "note.publishFailed": "Erreur : la configuration du maillot n'a pas pu être publiée. Vous devez peut-être être capitaine de l'équipe. Capitaine actuel : {captainLabel}.",
+    "captain.fallback": "le capitaine de l'équipe",
+    "captain.withUserId": "le capitaine de l'équipe, utilisateur ID {userId}"
+  }
+};
+
+function normalizeCtfdLanguage(locale) {
+  if (!locale) return "en";
+  const normalized = String(locale).toLowerCase();
+  if (normalized.startsWith("fr")) return "fr";
+  if (normalized.startsWith("en")) return "en";
+  return "en";
+}
+
+function getRequestedLanguage() {
+  return normalizeCtfdLanguage(window.CTFD_CURRENT_LOCALE || document.documentElement.lang || navigator.language);
+}
+
+const JERSEY_I18N_PREFIX = "jersey.";
+let currentLang = getRequestedLanguage();
+
+function getTranslation(dictionary, key) {
+  if (dictionary[key]) {
+    return dictionary[key];
+  }
+
+  if (key.startsWith(JERSEY_I18N_PREFIX)) {
+    return dictionary[key.slice(JERSEY_I18N_PREFIX.length)];
+  }
+
+  return "";
+}
+
+function t(key, values = {}) {
+  const dictionary = translations[currentLang] || translations.en;
+  const template = getTranslation(dictionary, key) || getTranslation(translations.en, key) || key;
+
+  return template.replace(/\{(\w+)\}/g, (match, token) => {
+    return Object.prototype.hasOwnProperty.call(values, token) ? String(values[token]) : match;
+  });
+}
+
+function applyTranslations(lang) {
+  const dictionary = translations[lang] || translations.en;
+
+  document.documentElement.setAttribute("lang", lang);
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.getAttribute("data-i18n");
+    const value = getTranslation(dictionary, key);
+    if (value) element.textContent = value;
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    const key = element.getAttribute("data-i18n-placeholder");
+    const value = getTranslation(dictionary, key);
+    if (value) element.setAttribute("placeholder", value);
+  });
+  document.querySelectorAll("[data-i18n-content]").forEach((element) => {
+    const key = element.getAttribute("data-i18n-content");
+    const value = getTranslation(dictionary, key);
+    if (value) element.setAttribute("content", value);
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+    const key = element.getAttribute("data-i18n-aria-label");
+    const value = getTranslation(dictionary, key);
+    if (value) element.setAttribute("aria-label", value);
+  });
+}
+
+applyTranslations(currentLang);
+
+window.addEventListener("load", () => {
+  const nextLang = getRequestedLanguage();
+
+  if (nextLang !== currentLang) {
+    currentLang = nextLang;
+    applyTranslations(currentLang);
+    render();
+  }
+});
+
 const STORAGE_KEYS = {
   draft: "pelotonJerseyBuilder.draft",
   validated: "pelotonJerseyBuilder.validatedDesigns",
@@ -921,13 +1112,13 @@ window.addEventListener("DOMContentLoaded", render);
 elements.form.addEventListener("input", (event) => {
   if (event.target.type === "file") return;
   updateStateFromForm();
-  markDraft("Draft saved locally. Keep refining your squad identity.");
+  markDraft(t("note.draftSaved"));
 });
 
 elements.form.addEventListener("change", (event) => {
   if (event.target.type === "radio") {
     updateStateFromForm();
-    markDraft("Pattern updated. The peloton is watching.");
+    markDraft(t("note.patternUpdated"));
   }
 });
 
@@ -946,7 +1137,7 @@ elements.randomizeButton.addEventListener("click", () => {
     validatedAt: ""
   };
   applyStateToForm();
-  markDraft("Random kit generated. Tweak it or lock it for the team.");
+  markDraft(t("note.randomized"));
   launchConfetti(24);
 });
 if (elements.publishJerseyButton) {
@@ -964,7 +1155,7 @@ function loadDraft() {
 
 async function hydrateFromCtfdTeam() {
   try {
-    setNote("Loading your CTFd team information...", "neutral");
+    setNote(t("note.loadingTeam"), "neutral");
 
     const team = await getCurrentCtfdTeam();
     const publishedConfig = parseJerseyConfigFromTeam(team);
@@ -983,13 +1174,13 @@ async function hydrateFromCtfdTeam() {
     render();
 
     if (publishedConfig) {
-      setNote(`Published team jersey loaded for ${state.teamName} #${state.raceNumber}.`, "success");
+      setNote(t("note.publishedLoaded", { teamName: state.teamName, raceNumber: state.raceNumber }), "success");
     } else {
-      setNote(`CTFd team loaded: ${state.teamName} #${state.raceNumber}. No published jersey config yet.`, "success");
+      setNote(t("note.teamLoaded", { teamName: state.teamName, raceNumber: state.raceNumber }), "success");
     }
   } catch (error) {
     console.warn("Unable to load CTFd team data:", error);
-    setNote("Unable to load your CTFd team automatically. Manual editing is still available.", "error");
+    setNote(t("note.teamLoadFailed"), "error");
   }
 }
 
@@ -1114,7 +1305,7 @@ async function publishJerseyConfigToCtfd() {
 
     if (currentTeam.captain_id && currentUser.id && Number(currentTeam.captain_id) !== Number(currentUser.id)) {
       const captainLabel = await getCurrentTeamCaptainLabel();
-      setNote(`Error: only the team captain can publish the jersey config. Current captain: ${captainLabel}.`, "error");
+      setNote(t("note.onlyCaptain", { captainLabel }), "error");
       return;
     }
 
@@ -1123,7 +1314,7 @@ async function publishJerseyConfigToCtfd() {
     const newTeamName = cleanTeamNameForCtfd(elements.teamName.value);
 
     if (!newTeamName) {
-      setNote("Error: team name cannot be empty.", "error");
+      setNote(t("note.emptyTeamName"), "error");
       return;
     }
 
@@ -1131,14 +1322,14 @@ async function publishJerseyConfigToCtfd() {
     const encodedConfig = encodeJerseyConfig(config);
 
     if (encodedConfig.length > 128) {
-      setNote(`Error: jersey config is too long for CTFd affiliation field (${encodedConfig.length}/128). Shorten the team motto.`, "error");
+      setNote(t("note.configTooLong", { length: encodedConfig.length }), "error");
       return;
     }
 
     elements.publishJerseyButton.disabled = true;
-    elements.publishJerseyButton.textContent = "Publishing...";
+    elements.publishJerseyButton.textContent = t("publish.pending");
 
-    setNote("Publishing jersey config to CTFd...", "neutral");
+    setNote(t("note.publishing"), "neutral");
 
     const response = await fetch(CTFD_API_ENDPOINTS.currentTeam, {
       method: "PATCH",
@@ -1175,17 +1366,17 @@ async function publishJerseyConfigToCtfd() {
     render();
     saveValidatedDesign(updatedTeam);
 
-    setNote(`Team name and jersey config published: ${state.teamName}.`, "success");
+    setNote(t("note.published", { teamName: state.teamName }), "success");
     launchConfetti(32);
   } catch (error) {
     console.error("Unable to publish jersey config:", error);
 
     const captainLabel = await getCurrentTeamCaptainLabel();
 
-    setNote(`Error: jersey config could not be published. You may need to be the team captain. Current captain: ${captainLabel}.`, "error");
+    setNote(t("note.publishFailed", { captainLabel }), "error");
   } finally {
     elements.publishJerseyButton.disabled = false;
-    elements.publishJerseyButton.textContent = "Publish jersey config";
+    elements.publishJerseyButton.textContent = t("publish.button");
   }
 }
 
@@ -1214,13 +1405,13 @@ async function getCurrentTeamCaptainLabel() {
     const team = await getCurrentCtfdTeam();
 
     if (!team.captain_id) {
-      return "the team captain";
+      return t("captain.fallback");
     }
 
     const captain = await getCtfdUser(team.captain_id);
 
     if (!captain) {
-      return `the team captain, user ID ${team.captain_id}`;
+      return t("captain.withUserId", { userId: team.captain_id });
     }
 
     if (captain.email && captain.name) {
@@ -1235,10 +1426,10 @@ async function getCurrentTeamCaptainLabel() {
       return captain.email;
     }
 
-    return `the team captain, user ID ${team.captain_id}`;
+    return t("captain.withUserId", { userId: team.captain_id });
   } catch (error) {
     console.warn("Unable to resolve CTFd team captain:", error);
-    return "the team captain";
+    return t("captain.fallback");
   }
 }
 
@@ -1413,7 +1604,7 @@ function render() {
   elements.identityMotto.textContent = state.teamMotto;
   elements.logoMonogram.textContent = createMonogram(state.teamName);
 
-  elements.statusPill.textContent = state.status === "locked" ? "Locked" : "Draft";
+  elements.statusPill.textContent = state.status === "locked" ? t("status.locked") : t("status.draft");
   elements.statusPill.classList.toggle("is-locked", state.status === "locked");
   saveDraft();
 }
