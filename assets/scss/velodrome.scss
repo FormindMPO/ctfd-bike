@@ -10,15 +10,14 @@
   --velodrome-surface-solid: #111827;
   --velodrome-surface-alt: #172033;
 
-  /* Existing vélodrome palette, boosted for dark */
-  --velodrome-orange: #ff9a3d;
+  --velodrome-orange: #f58220;
   --velodrome-orange-dark: #f58220;
-  --velodrome-cyan: #3bb4c8;
-  --velodrome-yellow: #ffc845;
-  --velodrome-red: #ff735f;
-  --velodrome-pink: #ff4d9a;
-  --velodrome-purple: #7a5cff;
-  --velodrome-green: #18f2b2;
+  --velodrome-cyan: #00a7c8;
+  --velodrome-yellow: #ffb000;
+  --velodrome-red: #e5452f;
+  --velodrome-pink: #e5452f;
+  --velodrome-purple: #6d6f73;
+  --velodrome-green: #00a7c8;
 
   --velodrome-charcoal: #f4f7f8;
   --velodrome-muted: rgba(244, 247, 248, 0.68);
@@ -33,17 +32,17 @@
   --bs-body-bg: var(--velodrome-bg);
   --bs-body-color: #f4f7f8;
   --bs-primary: var(--velodrome-orange);
-  --bs-primary-rgb: 255, 154, 61;
+  --bs-primary-rgb: 245, 130, 32;
   --bs-secondary: #b7c0c7;
   --bs-secondary-rgb: 183, 192, 199;
   --bs-success: var(--velodrome-cyan);
-  --bs-success-rgb: 59, 180, 200;
+  --bs-success-rgb: 0, 167, 200;
   --bs-info: var(--velodrome-cyan);
-  --bs-info-rgb: 59, 180, 200;
+  --bs-info-rgb: 0, 167, 200;
   --bs-warning: var(--velodrome-yellow);
-  --bs-warning-rgb: 255, 200, 69;
+  --bs-warning-rgb: 255, 176, 0;
   --bs-danger: var(--velodrome-red);
-  --bs-danger-rgb: 255, 115, 95;
+  --bs-danger-rgb: 229, 69, 47;
   --bs-link-color: var(--velodrome-yellow);
   --bs-link-hover-color: #ffffff;
   --bs-border-color: var(--velodrome-border);
@@ -62,8 +61,8 @@ html[data-bs-theme="dark"] {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(59, 180, 200, 0.18), transparent 32rem),
-    radial-gradient(circle at 85% 20%, rgba(255, 77, 154, 0.18), transparent 30rem),
+    radial-gradient(circle at top left, rgba(0, 167, 200, 0.18), transparent 32rem),
+    radial-gradient(circle at 85% 20%, rgba(245, 130, 32, 0.16), transparent 30rem),
     linear-gradient(135deg, var(--velodrome-bg) 0%, var(--velodrome-bg-alt) 48%, #14051f 100%);
   color: var(--bs-body-color);
 }
@@ -87,8 +86,8 @@ body::after {
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(120deg, transparent 0 42%, rgba(255, 154, 61, 0.08) 42% 43%, transparent 43% 100%),
-    linear-gradient(105deg, transparent 0 58%, rgba(59, 180, 200, 0.08) 58% 59%, transparent 59% 100%);
+    linear-gradient(120deg, transparent 0 42%, rgba(245, 130, 32, 0.08) 42% 43%, transparent 43% 100%),
+    linear-gradient(105deg, transparent 0 58%, rgba(0, 167, 200, 0.08) 58% 59%, transparent 59% 100%);
   pointer-events: none;
 }
 
@@ -216,7 +215,7 @@ main > .container,
   height: 21rem;
   right: -22rem;
   top: 10rem;
-  box-shadow: 0 0 80px rgba(59, 180, 200, 0.18);
+  box-shadow: 0 0 80px rgba(0, 167, 200, 0.18);
 }
 
 .hero-orbit-two {
@@ -224,7 +223,7 @@ main > .container,
   height: 16rem;
   right: -12rem;
   top: 18rem;
-  border-color: rgba(255, 77, 154, 0.35);
+  border-color: rgba(229, 69, 47, 0.34);
 }
 
 .hero-content {
@@ -253,7 +252,7 @@ main > .container,
   height: 0.65rem;
   border-radius: 50%;
   background: var(--velodrome-green);
-  box-shadow: 0 0 0 0 rgba(24, 242, 178, 0.65);
+  box-shadow: 0 0 0 0 rgba(0, 167, 200, 0.58);
   animation: pulse 1.7s infinite;
 }
 
@@ -268,7 +267,7 @@ main > .container,
 
 .hero-velodrome h1 span {
   display: block;
-  background: linear-gradient(90deg, #ffffff, #4ee7ff 42%, var(--velodrome-pink));
+  background: linear-gradient(90deg, #d7dde1, var(--velodrome-cyan) 36%, var(--velodrome-orange) 68%, var(--velodrome-red));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -301,9 +300,9 @@ main > .container,
 .btn-primary,
 .btn-dark {
   border: 0;
-  background: linear-gradient(135deg, var(--velodrome-cyan), var(--velodrome-purple) 48%, var(--velodrome-pink));
+  background: linear-gradient(135deg, var(--velodrome-cyan), var(--velodrome-orange) 48%, var(--velodrome-red));
   color: #ffffff;
-  box-shadow: 0 20px 50px rgba(122, 92, 255, 0.35);
+  box-shadow: 0 20px 50px rgba(245, 130, 32, 0.34);
   font-weight: 900;
 }
 
@@ -317,10 +316,10 @@ main > .container,
 .btn-primary:focus,
 .btn-dark:hover,
 .btn-dark:focus {
-  background: linear-gradient(135deg, #4ee7ff, #8b74ff 48%, #ff6fab);
+  background: linear-gradient(135deg, #19bedc, #ff9a3d 48%, #f05a3f);
   color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 28px 70px rgba(255, 77, 154, 0.28);
+  box-shadow: 0 28px 70px rgba(229, 69, 47, 0.28);
 }
 
 .hero-btn-secondary,
@@ -373,7 +372,7 @@ main > .container,
 
 .jumbotron {
   background:
-    linear-gradient(90deg, rgba(255, 154, 61, 0.15), transparent 42%),
+    linear-gradient(90deg, rgba(245, 130, 32, 0.15), transparent 42%),
     rgba(255, 255, 255, 0.065);
   border-bottom: 1px solid var(--velodrome-border);
   color: #f4f7f8;
@@ -435,7 +434,7 @@ main > .container,
 }
 
 .section-label {
-  color: #4ee7ff;
+  color: var(--velodrome-cyan);
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-weight: 900;
@@ -472,7 +471,7 @@ main > .container,
 }
 
 .challenge-cards span {
-  color: var(--velodrome-pink);
+  color: var(--velodrome-red);
   font-weight: 900;
   font-size: 0.9rem;
 }
@@ -504,8 +503,8 @@ main > .container,
 .category-header::after {
   background: linear-gradient(
     90deg,
-    rgba(255, 154, 61, 0.78),
-    rgba(59, 180, 200, 0.42),
+    rgba(245, 130, 32, 0.78),
+    rgba(0, 167, 200, 0.42),
     transparent
   );
   border-radius: 999px;
@@ -531,7 +530,7 @@ main > .container,
 }
 
 .challenge-button::before {
-  background: linear-gradient(180deg, var(--velodrome-cyan), var(--velodrome-purple), var(--velodrome-pink));
+  background: linear-gradient(180deg, var(--velodrome-cyan), var(--velodrome-orange), var(--velodrome-red));
   content: "";
   inset: 0 auto 0 0;
   position: absolute;
@@ -579,7 +578,7 @@ main > .container,
 }
 
 .challenge-button.challenge-solved {
-  border-color: rgba(59, 180, 200, 0.46) !important;
+  border-color: rgba(0, 167, 200, 0.46) !important;
 }
 
 .challenge-button.challenge-solved::before {
@@ -587,9 +586,9 @@ main > .container,
 }
 
 .challenge-button.challenge-solved .challenge-inner span {
-  background-color: rgba(59, 180, 200, 0.16);
-  border-color: rgba(59, 180, 200, 0.32);
-  color: #8be5f2;
+  background-color: rgba(0, 167, 200, 0.16);
+  border-color: rgba(0, 167, 200, 0.32);
+  color: #7bd9e8;
 }
 
 /* Buttons / badges */
@@ -708,7 +707,7 @@ main > .container,
 }
 
 .nav-pills .nav-link.active {
-  background: linear-gradient(135deg, var(--velodrome-cyan), var(--velodrome-purple));
+  background: linear-gradient(135deg, var(--velodrome-cyan), var(--velodrome-orange));
   color: #ffffff;
 }
 
@@ -760,26 +759,26 @@ main > .container,
 /* Alerts */
 
 .alert-success {
-  background-color: rgba(59, 180, 200, 0.12);
-  border-color: rgba(59, 180, 200, 0.3);
-  color: #baf6ff;
+  background-color: rgba(0, 167, 200, 0.12);
+  border-color: rgba(0, 167, 200, 0.3);
+  color: #9ee7f1;
 }
 
 .alert-info {
-  background-color: rgba(59, 180, 200, 0.12);
-  border-color: rgba(59, 180, 200, 0.28);
-  color: #baf6ff;
+  background-color: rgba(0, 167, 200, 0.12);
+  border-color: rgba(0, 167, 200, 0.28);
+  color: #9ee7f1;
 }
 
 .alert-warning {
-  background-color: rgba(255, 200, 69, 0.14);
-  border-color: rgba(255, 200, 69, 0.34);
+  background-color: rgba(255, 176, 0, 0.14);
+  border-color: rgba(255, 176, 0, 0.34);
   color: #ffe8a3;
 }
 
 .alert-danger {
-  background-color: rgba(255, 115, 95, 0.12);
-  border-color: rgba(255, 115, 95, 0.32);
+  background-color: rgba(229, 69, 47, 0.12);
+  border-color: rgba(229, 69, 47, 0.32);
   color: #ffc4bb;
 }
 
@@ -788,7 +787,7 @@ blockquote {
 }
 
 code {
-  color: var(--velodrome-pink);
+  color: var(--velodrome-red);
 }
 
 /* Footer */
@@ -809,15 +808,15 @@ code {
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(24, 242, 178, 0.65);
+    box-shadow: 0 0 0 0 rgba(0, 167, 200, 0.58);
   }
 
   70% {
-    box-shadow: 0 0 0 10px rgba(24, 242, 178, 0);
+    box-shadow: 0 0 0 10px rgba(0, 167, 200, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(24, 242, 178, 0);
+    box-shadow: 0 0 0 0 rgba(0, 167, 200, 0);
   }
 }
 

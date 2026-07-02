@@ -3,237 +3,246 @@
 {% block body_class %}velodrome-home{% endblock %}
 
 {% block content %}
+  <section class="velodrome-background">
+    <div class="hero-grid"></div>
+    <div class="hero-orbit hero-orbit-one"></div>
+    <div class="hero-orbit hero-orbit-two"></div>
 
-<section class="hero-velodrome">
-  <div class="hero-grid"></div>
-  <div class="hero-orbit hero-orbit-one"></div>
-  <div class="hero-orbit hero-orbit-two"></div>
+    {% if request.path != "/" %}
+      <main class="container velodrome-page-content">
+        {{ content | safe }}
+      </main>
+    {% else %}
+      <section class="hero-velodrome">
+        <div class="container hero-content">
+          <div class="hero-kicker">
+            <span class="pulse-dot"></span>
+            <span data-i18n="hero.kicker">
+              2026 Edition · Saint-Quentin-en-Yvelines National Velodrome
+            </span>
+          </div>
 
-  <div class="container hero-content">
-    <div class="hero-kicker">
-      <span class="pulse-dot"></span>
-      <span data-i18n="hero.kicker">
-        2026 Edition · Saint-Quentin-en-Yvelines National Velodrome
-      </span>
-    </div>
+          <h1>
+            <span data-i18n="hero.title">CTF ByTech 2026</span>
+            <span data-i18n="hero.tagline">Hack the track.</span>
+          </h1>
 
-    <h1>
-      <span data-i18n="hero.title">CTF ByTech 2026</span>
-      <span data-i18n="hero.tagline">Hack the track.</span>
-    </h1>
+          <p class="hero-intro" data-i18n="hero.intro">
+            As part of the Cycling World Cup, your company is responsible for securing
+            the industrial systems of one of the sites hosting the event.
+          </p>
 
-    <p class="hero-intro" data-i18n="hero.intro">
-      As part of the Cycling World Cup, your company is responsible for securing
-      the industrial systems of one of the sites hosting the event.
-    </p>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
+            Industrial supervision, critical equipment, automation, exposed networks, and real-time pressure:
+            your teams must stay in control while the competition is in full swing.
+          </p>
 
-    <p class="hero-subtitle" data-i18n="hero.subtitle">
-      Industrial supervision, critical equipment, automation, exposed networks, and real-time pressure:
-      your teams must stay in control while the competition is in full swing.
-    </p>
+          <div class="hero-actions">
+            {% if authed() %}
+              <a class="btn btn-primary btn-lg hero-btn" href="{{ url_for('challenges.listing') }}" data-i18n="cta.enter">
+                Enter the arena
+              </a>
 
-    <div class="hero-actions">
-      {% if authed() %}
-        <a class="btn btn-primary btn-lg hero-btn" href="{{ url_for('challenges.listing') }}" data-i18n="cta.enter">
-          Enter the arena
-        </a>
+              <a class="btn btn-outline-light btn-lg hero-btn-secondary" href="{{ url_for('scoreboard.listing') }}" data-i18n="cta.scoreboard">
+                View scoreboard
+              </a>
+            {% else %}
+              <a class="btn btn-primary btn-lg hero-btn" href="{{ url_for('auth.register') }}" data-i18n="cta.join">
+                Join the CTF
+              </a>
 
-        <a class="btn btn-outline-light btn-lg hero-btn-secondary" href="{{ url_for('scoreboard.listing') }}" data-i18n="cta.scoreboard">
-          View scoreboard
-        </a>
-      {% else %}
-        <a class="btn btn-primary btn-lg hero-btn" href="{{ url_for('auth.register') }}" data-i18n="cta.join">
-          Join the CTF
-        </a>
+              <a class="btn btn-outline-light btn-lg hero-btn-secondary" href="{{ url_for('auth.login') }}" data-i18n="cta.login">
+                Log in
+              </a>
+            {% endif %}
+          </div>
 
-        <a class="btn btn-outline-light btn-lg hero-btn-secondary" href="{{ url_for('auth.login') }}" data-i18n="cta.login">
-          Log in
-        </a>
-      {% endif %}
-    </div>
+          <div class="hero-stats">
+            <div>
+              <strong>2026</strong>
+              <span data-i18n="stats.edition">New edition</span>
+            </div>
 
-    <div class="hero-stats">
-      <div>
-        <strong>2026</strong>
-        <span data-i18n="stats.edition">New edition</span>
-      </div>
+            <div>
+              <strong>SQY</strong>
+              <span data-i18n="stats.velodrome">National Velodrome</span>
+            </div>
 
-      <div>
-        <strong>SQY</strong>
-        <span data-i18n="stats.velodrome">National Velodrome</span>
-      </div>
+            <div>
+              <strong>ICS</strong>
+              <span data-i18n="stats.ics">Industrial systems</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div>
-        <strong>ICS</strong>
-        <span data-i18n="stats.ics">Industrial systems</span>
-      </div>
-    </div>
+      <section class="mission-section">
+        <div class="container">
+          <div class="mission-card">
+            <div>
+              <p class="section-label" data-i18n="mission.label">
+                Your mission
+              </p>
+
+              <h2 data-i18n="mission.title">
+                Secure the critical infrastructure of a cycling competition venue.
+              </h2>
+            </div>
+
+            <div class="mission-copy">
+              <p data-i18n="mission.copy1">
+                The velodrome is running at full speed. Supervision systems are reporting weak signals,
+                industrial equipment is communicating, access points are multiplying, and every second counts.
+              </p>
+
+              <p data-i18n="mission.copy2">
+                Analysis, exploitation, investigation, hardening: prove that your team can keep a cool head
+                when the pressure rises on the track.
+              </p>
+            </div>
+          </div>
+
+          <div class="challenge-cards">
+            <article>
+              <span>01</span>
+              <h3 data-i18n="cards.recon.title">Reconnaissance</h3>
+              <p data-i18n="cards.recon.copy">
+                Map the environment, identify exposed services, and understand the attack surface.
+              </p>
+            </article>
+
+            <article>
+              <span>02</span>
+              <h3 data-i18n="cards.exploit.title">Exploitation</h3>
+              <p data-i18n="cards.exploit.copy">
+                Exploit application, network, or industrial weaknesses to progress through the scenario.
+              </p>
+            </article>
+
+            <article>
+              <span>03</span>
+              <h3 data-i18n="cards.resilience.title">Resilience</h3>
+              <p data-i18n="cards.resilience.copy">
+                Prioritize, secure, and keep critical systems under control all the way to the finish line.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    {% endif %}
   </div>
-</section>
+{% endblock %}
 
-<section class="mission-section">
-  <div class="container">
-    <div class="mission-card">
-      <div>
-        <p class="section-label" data-i18n="mission.label">
-          Your mission
-        </p>
+{% block scripts %}
+  {{ Assets.js("assets/js/page.js") }}
+  <script>
+    window.CTFD_CURRENT_LOCALE = "{{ get_locale() }}";
+  </script>
 
-        <h2 data-i18n="mission.title">
-          Secure the critical infrastructure of a cycling competition venue.
-        </h2>
-      </div>
+  <script>
+    (function () {
+      const translations = {
+        en: {
+          "hero.kicker": "2026 Edition · Saint-Quentin-en-Yvelines National Velodrome",
+          "hero.title": "CTF ByTech 2026",
+          "hero.tagline": "Hack the track.",
+          "hero.intro": "As part of the Cycling World Cup, your company is responsible for securing the industrial systems of one of the sites hosting the event.",
+          "hero.subtitle": "Industrial supervision, critical equipment, automation, exposed networks, and real-time pressure: your teams must stay in control while the competition is in full swing.",
 
-      <div class="mission-copy">
-        <p data-i18n="mission.copy1">
-          The velodrome is running at full speed. Supervision systems are reporting weak signals,
-          industrial equipment is communicating, access points are multiplying, and every second counts.
-        </p>
+          "cta.enter": "Enter the arena",
+          "cta.scoreboard": "View scoreboard",
+          "cta.join": "Join the CTF",
+          "cta.login": "Log in",
 
-        <p data-i18n="mission.copy2">
-          Analysis, exploitation, investigation, hardening: prove that your team can keep a cool head
-          when the pressure rises on the track.
-        </p>
-      </div>
-    </div>
+          "stats.edition": "New edition",
+          "stats.velodrome": "National Velodrome",
+          "stats.ics": "Industrial systems",
 
-    <div class="challenge-cards">
-      <article>
-        <span>01</span>
-        <h3 data-i18n="cards.recon.title">Reconnaissance</h3>
-        <p data-i18n="cards.recon.copy">
-          Map the environment, identify exposed services, and understand the attack surface.
-        </p>
-      </article>
+          "mission.label": "Your mission",
+          "mission.title": "Secure the critical infrastructure of a cycling competition venue.",
+          "mission.copy1": "The velodrome is running at full speed. Supervision systems are reporting weak signals, industrial equipment is communicating, access points are multiplying, and every second counts.",
+          "mission.copy2": "Analysis, exploitation, investigation, hardening: prove that your team can keep a cool head when the pressure rises on the track.",
 
-      <article>
-        <span>02</span>
-        <h3 data-i18n="cards.exploit.title">Exploitation</h3>
-        <p data-i18n="cards.exploit.copy">
-          Exploit application, network, or industrial weaknesses to progress through the scenario.
-        </p>
-      </article>
+          "cards.recon.title": "Reconnaissance",
+          "cards.recon.copy": "Map the environment, identify exposed services, and understand the attack surface.",
 
-      <article>
-        <span>03</span>
-        <h3 data-i18n="cards.resilience.title">Resilience</h3>
-        <p data-i18n="cards.resilience.copy">
-          Prioritize, secure, and keep critical systems under control all the way to the finish line.
-        </p>
-      </article>
-    </div>
-  </div>
-</section>
+          "cards.exploit.title": "Exploitation",
+          "cards.exploit.copy": "Exploit application, network, or industrial weaknesses to progress through the scenario.",
 
-<script>
-  window.CTFD_CURRENT_LOCALE = "{{ get_locale() }}";
-</script>
+          "cards.resilience.title": "Resilience",
+          "cards.resilience.copy": "Prioritize, secure, and keep critical systems under control all the way to the finish line."
+        },
 
-<script>
-(function () {
-  const translations = {
-    en: {
-      "hero.kicker": "2026 Edition · Saint-Quentin-en-Yvelines National Velodrome",
-      "hero.title": "CTF ByTech 2026",
-      "hero.tagline": "Hack the track.",
-      "hero.intro": "As part of the Cycling World Cup, your company is responsible for securing the industrial systems of one of the sites hosting the event.",
-      "hero.subtitle": "Industrial supervision, critical equipment, automation, exposed networks, and real-time pressure: your teams must stay in control while the competition is in full swing.",
+        fr: {
+          "hero.kicker": "Édition 2026 · Vélodrome National de Saint-Quentin-en-Yvelines",
+          "hero.title": "CTF ByTech 2026",
+          "hero.tagline": "Hack The Track.",
+          "hero.intro": "Dans le cadre de la Coupe du Monde de cyclisme, votre entreprise est chargée de sécuriser les systèmes industriels de l'un des sites accueillant l'événement.",
+          "hero.subtitle": "Supervision industrielle, équipements critiques, automatisation, réseaux exposés et pression en temps réel : vos équipes doivent garder le contrôle pendant que la compétition bat son plein.",
 
-      "cta.enter": "Enter the arena",
-      "cta.scoreboard": "View scoreboard",
-      "cta.join": "Join the CTF",
-      "cta.login": "Log in",
+          "cta.enter": "Entrer dans l'arène",
+          "cta.scoreboard": "Voir le classement",
+          "cta.join": "Rejoindre le CTF",
+          "cta.login": "Se connecter",
 
-      "stats.edition": "New edition",
-      "stats.velodrome": "National Velodrome",
-      "stats.ics": "Industrial systems",
+          "stats.edition": "Nouvelle édition",
+          "stats.velodrome": "Vélodrome National",
+          "stats.ics": "Systèmes industriels",
 
-      "mission.label": "Your mission",
-      "mission.title": "Secure the critical infrastructure of a cycling competition venue.",
-      "mission.copy1": "The velodrome is running at full speed. Supervision systems are reporting weak signals, industrial equipment is communicating, access points are multiplying, and every second counts.",
-      "mission.copy2": "Analysis, exploitation, investigation, hardening: prove that your team can keep a cool head when the pressure rises on the track.",
+          "mission.label": "Votre mission",
+          "mission.title": "Sécuriser l'infrastructure critique d'un site de compétition cycliste.",
+          "mission.copy1": "Le vélodrome tourne à plein régime. Les systèmes de supervision remontent des signaux faibles, les équipements industriels communiquent, les points d'accès se multiplient, et chaque seconde compte.",
+          "mission.copy2": "Analyse, exploitation, investigation, durcissement : prouvez que votre équipe peut garder la tête froide lorsque la pression monte sur la piste.",
 
-      "cards.recon.title": "Reconnaissance",
-      "cards.recon.copy": "Map the environment, identify exposed services, and understand the attack surface.",
+          "cards.recon.title": "Reconnaissance",
+          "cards.recon.copy": "Cartographiez l'environnement, identifiez les services exposés et comprenez la surface d'attaque.",
 
-      "cards.exploit.title": "Exploitation",
-      "cards.exploit.copy": "Exploit application, network, or industrial weaknesses to progress through the scenario.",
+          "cards.exploit.title": "Exploitation",
+          "cards.exploit.copy": "Exploitez des faiblesses applicatives, réseau ou industrielles pour progresser dans le scénario.",
 
-      "cards.resilience.title": "Resilience",
-      "cards.resilience.copy": "Prioritize, secure, and keep critical systems under control all the way to the finish line."
-    },
+          "cards.resilience.title": "Résilience",
+          "cards.resilience.copy": "Priorisez, sécurisez et gardez les systèmes critiques sous contrôle jusqu'à la ligne d'arrivée."
+        }
+      };
 
-    fr: {
-      "hero.kicker": "Édition 2026 · Vélodrome National de Saint-Quentin-en-Yvelines",
-      "hero.title": "CTF ByTech 2026",
-      "hero.tagline": "Hack The Track.",
-      "hero.intro": "Dans le cadre de la Coupe du Monde de cyclisme, votre entreprise est chargée de sécuriser les systèmes industriels de l’un des sites accueillant l’événement.",
-      "hero.subtitle": "Supervision industrielle, équipements critiques, automatisation, réseaux exposés et pression en temps réel : vos équipes doivent garder le contrôle pendant que la compétition bat son plein.",
+      function normalizeCtfdLanguage(locale) {
+        if (!locale) {
+          return "en";
+        }
 
-      "cta.enter": "Entrer dans l’arène",
-      "cta.scoreboard": "Voir le classement",
-      "cta.join": "Rejoindre le CTF",
-      "cta.login": "Se connecter",
+        const normalized = String(locale).toLowerCase();
 
-      "stats.edition": "Nouvelle édition",
-      "stats.velodrome": "Vélodrome National",
-      "stats.ics": "Systèmes industriels",
+        if (normalized.startsWith("fr")) {
+          return "fr";
+        }
 
-      "mission.label": "Votre mission",
-      "mission.title": "Sécuriser l’infrastructure critique d’un site de compétition cycliste.",
-      "mission.copy1": "Le vélodrome tourne à plein régime. Les systèmes de supervision remontent des signaux faibles, les équipements industriels communiquent, les points d’accès se multiplient, et chaque seconde compte.",
-      "mission.copy2": "Analyse, exploitation, investigation, durcissement : prouvez que votre équipe peut garder la tête froide lorsque la pression monte sur la piste.",
+        if (normalized.startsWith("en")) {
+          return "en";
+        }
 
-      "cards.recon.title": "Reconnaissance",
-      "cards.recon.copy": "Cartographiez l’environnement, identifiez les services exposés et comprenez la surface d’attaque.",
-
-      "cards.exploit.title": "Exploitation",
-      "cards.exploit.copy": "Exploitez des faiblesses applicatives, réseau ou industrielles pour progresser dans le scénario.",
-
-      "cards.resilience.title": "Résilience",
-      "cards.resilience.copy": "Priorisez, sécurisez et gardez les systèmes critiques sous contrôle jusqu’à la ligne d’arrivée."
-    }
-  };
-
-  function normalizeCtfdLanguage(locale) {
-    if (!locale) {
-      return "en";
-    }
-
-    const normalized = String(locale).toLowerCase();
-
-    if (normalized.startsWith("fr")) {
-      return "fr";
-    }
-
-    if (normalized.startsWith("en")) {
-      return "en";
-    }
-
-    return "en";
-  }
-
-  function getRequestedLanguage() {
-    return normalizeCtfdLanguage(window.CTFD_CURRENT_LOCALE);
-  }
-
-  function applyTranslations(lang) {
-    const dictionary = translations[lang] || translations.en;
-
-    document.documentElement.setAttribute("lang", lang);
-
-    document.querySelectorAll("[data-i18n]").forEach(function (element) {
-      const key = element.getAttribute("data-i18n");
-
-      if (dictionary[key]) {
-        element.textContent = dictionary[key];
+        return "en";
       }
-    });
-  }
 
-  const currentLang = getRequestedLanguage();
-  applyTranslations(currentLang);
-})();
-</script>
+      function getRequestedLanguage() {
+        return normalizeCtfdLanguage(window.CTFD_CURRENT_LOCALE);
+      }
 
+      function applyTranslations(lang) {
+        const dictionary = translations[lang] || translations.en;
+
+        document.documentElement.setAttribute("lang", lang);
+
+        document.querySelectorAll("[data-i18n]").forEach(function (element) {
+          const key = element.getAttribute("data-i18n");
+
+          if (dictionary[key]) {
+            element.textContent = dictionary[key];
+          }
+        });
+      }
+
+      const currentLang = getRequestedLanguage();
+      applyTranslations(currentLang);
+    })();
+  </script>
 {% endblock %}

@@ -44,7 +44,7 @@ msgstr[1] "notes"
 
 #: templates/challenge.html:115
 msgid "View Hint"
-msgstr "Voir l’indice"
+msgstr "Voir l'indice"
 
 #: templates/challenge.html:162
 msgid "attempt"
@@ -119,10 +119,10 @@ msgstr "Cliquez sur le lien contenu dans cet e-mail pour confirmer votre compte.
 
 #: templates/confirm.html:26 templates/confirm.html:37
 msgid ""
-"If the email doesn’t arrive, check your spam folder or contact an "
+"If the email doesn't arrive, check your spam folder or contact an "
 "administrator to manually verify your account."
 msgstr ""
-"Si l’e-mail n’arrive pas, vérifiez votre dossier de spam ou contactez un "
+"Si l'e-mail n'arrive pas, vérifiez votre dossier de spam ou contactez un "
 "administrateur pour faire vérifier votre compte manuellement."
 
 #: templates/confirm.html:30
@@ -131,7 +131,7 @@ msgstr "Nous avons envoyé un e-mail de confirmation à votre adresse e-mail."
 
 #: templates/confirm.html:51
 msgid "Change Email Address"
-msgstr "Modifier l’adresse e-mail"
+msgstr "Modifier l'adresse e-mail"
 
 #: templates/index.html:15 templates/page.html:15
 msgid "2026 Edition · Saint-Quentin-en-Yvelines National Velodrome"
@@ -156,7 +156,7 @@ msgstr ""
 "\n"
 "      Dans le cadre de la Coupe du monde de cyclisme, votre entreprise est "
 "responsable de la sécurisation\n"
-"      des systèmes industriels de l’un des sites accueillant l’événement.\n"
+"      des systèmes industriels de l'un des sites accueillant l'événement.\n"
 "      "
 
 #: templates/index.html:31 templates/page.html:31
@@ -177,7 +177,7 @@ msgstr ""
 
 #: templates/index.html:40 templates/page.html:40
 msgid "Enter the arena"
-msgstr "Entrer dans l’arène"
+msgstr "Entrer dans l'arène"
 
 #: templates/index.html:44 templates/page.html:44
 msgid "View scoreboard"
@@ -215,7 +215,7 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Sécurisez l’infrastructure critique d’un site de compétition "
+"          Sécurisez l'infrastructure critique d'un site de compétition "
 "cycliste.\n"
 "          "
 
@@ -231,7 +231,7 @@ msgstr ""
 "\n"
 "          Le vélodrome tourne à plein régime. Les systèmes de supervision "
 "remontent des signaux faibles,\n"
-"          les équipements industriels communiquent, les points d’accès se "
+"          les équipements industriels communiquent, les points d'accès se "
 "multiplient, et chaque seconde compte.\n"
 "          "
 
@@ -261,8 +261,8 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Cartographiez l’environnement, identifiez les services exposés et "
-"comprenez la surface d’attaque.\n"
+"          Cartographiez l'environnement, identifiez les services exposés et "
+"comprenez la surface d'attaque.\n"
 "          "
 
 #: templates/index.html:121 templates/page.html:121
@@ -294,7 +294,7 @@ msgid ""
 msgstr ""
 "\n"
 "          Priorisez, sécurisez et gardez les systèmes critiques sous "
-"contrôle jusqu’à la ligne d’arrivée.\n"
+"contrôle jusqu'à la ligne d'arrivée.\n"
 "          "
 
 #: templates/components/navbar.html:164 templates/components/navbar.html:169
@@ -313,7 +313,7 @@ msgstr "Notifications"
 
 #: templates/notifications.html:14
 msgid "There are no notifications yet"
-msgstr "Il n’y a pas encore de notifications"
+msgstr "Il n'y a pas encore de notifications"
 
 #: templates/page.html:19
 msgid "CTF ByTech 2026"
@@ -322,11 +322,11 @@ msgstr "CTF ByTech 2026"
 #: templates/components/navbar.html:151 templates/components/navbar.html:156
 #: templates/register.html:7
 msgid "Register"
-msgstr "S’inscrire"
+msgstr "S'inscrire"
 
 #: templates/register.html:35
 msgid "Your username on the site"
-msgstr "Votre nom d’utilisateur sur le site"
+msgstr "Votre nom d'utilisateur sur le site"
 
 #: templates/register.html:43
 msgid "Never shown to the public"
@@ -345,7 +345,7 @@ msgid ""
 msgstr ""
 "En vous inscrivant, vous acceptez la <a href=\"%(privacy_link)s\" "
 "target=\"_blank\">politique de confidentialité</a> et les <a "
-"href=\"%(tos_link)s\" target=\"_blank\">conditions d’utilisation</a>"
+"href=\"%(tos_link)s\" target=\"_blank\">conditions d'utilisation</a>"
 
 #: templates/reset_password.html:7
 msgid "Reset Password"
@@ -361,7 +361,7 @@ msgstr ""
 
 #: templates/reset_password.html:44
 msgid "Please provide the email address associated with your account below."
-msgstr "Veuillez indiquer ci-dessous l’adresse e-mail associée à votre compte."
+msgstr "Veuillez indiquer ci-dessous l'adresse e-mail associée à votre compte."
 
 #: templates/components/navbar.html:52 templates/scoreboard.html:7
 msgid "Scoreboard"
@@ -396,7 +396,7 @@ msgstr "Profil"
 
 #: templates/settings.html:26
 msgid "Access Tokens"
-msgstr "Jetons d’accès"
+msgstr "Jetons d'accès"
 
 #: templates/settings.html:95
 msgid "Your profile has been updated"
@@ -482,11 +482,11 @@ msgstr "Les participants créent des comptes et forment des équipes"
 
 #: templates/setup.html:113
 msgid "If a team member solves a challenge, the entire team receives credit"
-msgstr "Si un membre de l’équipe résout une épreuve, toute l’équipe reçoit les points"
+msgstr "Si un membre de l'équipe résout une épreuve, toute l'équipe reçoit les points"
 
 #: templates/setup.html:115
 msgid "Easier to see which team member solved a challenge"
-msgstr "Permet de voir plus facilement quel membre de l’équipe a résolu une épreuve"
+msgstr "Permet de voir plus facilement quel membre de l'équipe a résolu une épreuve"
 
 #: templates/setup.html:116
 msgid "May be slightly more difficult to administer"
@@ -506,7 +506,7 @@ msgstr "Plus facile à organiser"
 
 #: templates/setup.html:124
 msgid "Difficult to attribute solutions to individual team members"
-msgstr "Difficile d’attribuer les résolutions aux membres individuels de l’équipe"
+msgstr "Difficile d'attribuer les résolutions aux membres individuels de l'équipe"
 
 #: templates/setup.html:143
 msgid "Visibility Settings"
@@ -519,7 +519,7 @@ msgstr "Contrôlez la visibilité des différentes sections de CTFd"
 #: templates/setup.html:232
 msgid "Subscribe email address to the CTFd LLC Newsletter for news and updates"
 msgstr ""
-"Inscrire l’adresse e-mail à la newsletter de CTFd LLC pour recevoir les "
+"Inscrire l'adresse e-mail à la newsletter de CTFd LLC pour recevoir les "
 "actualités et les mises à jour"
 
 #: templates/setup.html:309 templates/setup.html:330
@@ -542,7 +542,7 @@ msgstr "Équipes"
 
 #: templates/components/navbar.html:72 templates/components/navbar.html:77
 msgid "Admin Panel"
-msgstr "Panneau d’administration"
+msgstr "Panneau d'administration"
 
 #: templates/components/navbar.html:99 templates/components/navbar.html:104
 #: templates/teams/team_enrollment.html:6 templates/teams/teams.html:49
@@ -601,7 +601,7 @@ msgstr "Bienvenue dans"
 
 #: templates/teams/invite.html:19
 msgid "Click the button below to join the team!"
-msgstr "Cliquez sur le bouton ci-dessous pour rejoindre l’équipe !"
+msgstr "Cliquez sur le bouton ci-dessous pour rejoindre l'équipe !"
 
 #: templates/teams/new_team.html:6 templates/teams/team_enrollment.html:39
 msgid "Create Team"
@@ -609,7 +609,7 @@ msgstr "Créer une équipe"
 
 #: templates/teams/private.html:8
 msgid "Edit Team"
-msgstr "Modifier l’équipe"
+msgstr "Modifier l'équipe"
 
 #: templates/teams/private.html:76
 msgid "Your team's profile has been updated"
@@ -629,15 +629,15 @@ msgstr "Inviter des utilisateurs"
 
 #: templates/teams/private.html:171
 msgid "Share this link with your team members for them to join your team"
-msgstr "Partagez ce lien avec les membres de votre équipe pour qu’ils la rejoignent"
+msgstr "Partagez ce lien avec les membres de votre équipe pour qu'ils la rejoignent"
 
 #: templates/teams/private.html:174
 msgid "Invite links can be re-used and expire after 1 day"
-msgstr "Les liens d’invitation peuvent être réutilisés et expirent après 1 jour"
+msgstr "Les liens d'invitation peuvent être réutilisés et expirent après 1 jour"
 
 #: templates/teams/private.html:188
 msgid "Disband Team"
-msgstr "Dissoudre l’équipe"
+msgstr "Dissoudre l'équipe"
 
 #: templates/teams/private.html:193
 msgid "Are you sure you want to disband your team?"
@@ -671,7 +671,7 @@ msgstr "Membres"
 
 #: templates/teams/private.html:329 templates/teams/public.html:95
 msgid "User Name"
-msgstr "Nom d’utilisateur"
+msgstr "Nom d'utilisateur"
 
 #: templates/teams/private.html:345 templates/teams/public.html:110
 msgid "Captain"
@@ -740,7 +740,7 @@ msgid ""
 "Searching for users with <strong>%(field)s</strong> matching "
 "<strong>%(q)s</strong>"
 msgstr ""
-"Recherche d’utilisateurs dont le champ <strong>%(field)s</strong> correspond "
+"Recherche d'utilisateurs dont le champ <strong>%(field)s</strong> correspond "
 "à <strong>%(q)s</strong>"
 
 #: templates/users/users.html:17
