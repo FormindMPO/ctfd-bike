@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scoreboard velodrome CTFd</title>
+  <meta name="description" content="Scoreboard CTFd en velodrome avec les maillots d'equipe generes par jersey.html.">
+  <style>
+:root {
+  color-scheme: dark;
+  --bg: #101820;
+  --panel: #17212c;
+  --panel-soft: #1f2b38;
+  --ink: #f7fafc;
+  --muted: #9aa9b8;
+  --line: rgba(255,255,255,.13);
+  --wood: #c8894b;
+  --wood-dark: #9e642f;
+  --grass: #243626;
+  --blue: #2b74d6;
+  --red: #d94848;
+  --green: #38a169;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+.page {
+  width: calc(100vw - 24px);
+  margin: 0 0 0 calc(50% - 50vw + 12px);
+  padding: 10px 0 12px;
+}
+.topbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.title h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.2vw, 2.15rem);
+  line-height: .95;
+  letter-spacing: 0;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.chip, .btn, .input, .select {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink);
+  font-weight: 750;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  color: var(--muted);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--muted);
+}
+.chip.live .dot { background: var(--green); }
+.chip.error .dot { background: var(--red); }
+.btn {
+  padding: 0 12px;
+}
+.btn.active {
+  border-color: rgba(43,116,214,.75);
+  background: var(--blue);
+  color: #fff;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(240px, 1fr);
+  gap: 10px;
+  align-items: start;
+  margin-top: 10px;
+}
+.arena, .side {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.arena {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+.velodrome {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1100 / 700;
+}
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(16,24,32,.86);
+  text-align: center;
+  z-index: 5;
+}
+.loading.hidden { display: none; }
+.loading strong { display: block; margin-bottom: 6px; font-size: 1.1rem; }
+.loading p { margin: 0; color: var(--muted); }
+
+.side {
+  padding: 12px;
+}
+.side-head {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 76px;
+  gap: 8px;
+  padding: 0 6px 8px;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+.ranking {
+  display: grid;
+  gap: 2px;
+  max-height: calc(100vh - 170px);
+  overflow: auto;
+}
+.row {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 76px;
+  gap: 8px;
+  align-items: center;
+  min-height: 58px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 6px;
+}
+.rank {
+  color: var(--team-accent, #fff);
+  font-size: 1.15rem;
+  font-weight: 950;
+  text-align: center;
+}
+.team {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+}
+.team strong {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.score {
+  font-weight: 950;
+  text-align: right;
+}
+.jersey-icon {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 40px;
+}
+.rider-label {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .16s ease;
+}
+.rider:hover .rider-label,
+.rider:focus .rider-label {
+  opacity: 1;
+}
+.note {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius);
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.4;
+}
+.note.hidden { display: none; }
+.empty {
+  padding: 28px 10px;
+  text-align: center;
+  color: var(--muted);
+  font-weight: 750;
+}
+
+@media (max-width: 980px) {
+  .topbar, .layout { grid-template-columns: 1fr; }
+  .actions { justify-content: flex-start; }
+  .arena { min-height: 620px; overflow-x: auto; }
+  .velodrome { width: 1050px; height: 620px; min-height: 620px; }
+  .ranking { max-height: 420px; }
+}
+@media (max-width: 620px) {
+  .page { width: calc(100vw - 14px); margin-left: calc(50% - 50vw + 7px); padding-top: 10px; }
+}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="title">
+        <h1>Velodrome CTFd</h1>
+      </div>
+      <div class="actions">
+        <span class="chip" id="statusChip"><span class="dot"></span><span id="statusText">Initialisation</span></span>
+        <span class="chip" id="clock">--:--</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="arena" aria-labelledby="arenaTitle">
+        <div class="loading" id="loading">
+          <div>
+            <strong id="loadingTitle">Chargement du scoreboard...</strong>
+            <p id="loadingText">Lecture des donnees CTFd.</p>
+          </div>
+        </div>
+        <svg class="velodrome" id="velodromeSvg" viewBox="0 0 1100 700" role="img" aria-labelledby="arenaTitle arenaDesc">
+          <title id="arenaTitle">Scoreboard en velodrome</title>
+          <desc id="arenaDesc">Un anneau de velodrome isometrique avec les equipes positionnees selon leur score.</desc>
+          <defs>
+            <linearGradient id="trackWood" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#d79a58"/>
+              <stop offset=".5" stop-color="#bd7839"/>
+              <stop offset="1" stop-color="#9e642f"/>
+            </linearGradient>
+            <pattern id="woodLines" width="52" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-4)">
+              <path d="M0 4 H52 M0 13 H52" stroke="rgba(75,45,20,.22)" stroke-width="1"/>
+            </pattern>
+            <filter id="softShadow" x="-30%" y="-40%" width="160%" height="180%">
+              <feDropShadow dx="0" dy="12" stdDeviation="9" flood-color="#000" flood-opacity=".34"/>
+            </filter>
+          </defs>
+
+          <rect width="1100" height="700" fill="#17212c"/>
+          <path d="M320 624 C186 624 80 496 80 332 C80 168 186 40 320 40 H780 C914 40 1020 168 1020 332 C1020 496 914 624 780 624 Z" fill="#111820" opacity=".85"/>
+          <path d="M320 582 C206 582 124 472 124 332 C124 192 206 82 320 82 H780 C894 82 976 192 976 332 C976 472 894 582 780 582 Z" fill="url(#trackWood)"/>
+          <path d="M320 582 C206 582 124 472 124 332 C124 192 206 82 320 82 H780 C894 82 976 192 976 332 C976 472 894 582 780 582 Z" fill="url(#woodLines)" opacity=".65"/>
+          <path d="M338 500 C266 500 218 424 218 332 C218 240 266 164 338 164 H762 C834 164 882 240 882 332 C882 424 834 500 762 500 Z" fill="var(--grass)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+          <path d="M318 544 C226 544 158 448 158 332 C158 216 226 120 318 120 H782 C874 120 942 216 942 332 C942 448 874 544 782 544 Z" fill="none" stroke="#2563eb" stroke-width="4"/>
+          <path d="M328 518 C252 518 196 434 196 332 C196 230 252 146 328 146 H772 C848 146 904 230 904 332 C904 434 848 518 772 518 Z" fill="none" stroke="#f8fafc" stroke-width="3" opacity=".78"/>
+          <path d="M338 494 C282 494 236 422 236 332 C236 242 282 170 338 170 H762 C818 170 864 242 864 332 C864 422 818 494 762 494 Z" fill="none" stroke="#d94848" stroke-width="3"/>
+          <path d="M550 82 V582" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-dasharray="8 10"/>
+          <g id="ticks"></g>
+          <g id="riders"></g>
+        </svg>
+      </section>
+
+      <aside class="side" aria-label="Classement">
+        <div class="side-head"><span>#</span><span>Equipe</span><span>Points</span></div>
+        <div class="ranking" id="ranking"></div>
+        <div class="note hidden" id="note"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+(() => {
+  "use strict";
+
+  const CONFIG = {
+    endpoints: {
+      scoreboard: "/api/v1/scoreboard",
+      teams: "/api/v1/teams",
+      team: (id) => `/api/v1/teams/${encodeURIComponent(id)}`,
+      challenges: "/api/v1/challenges",
+      submissions: "/api/v1/submissions"
+    },
+    metadataField: "affiliation",
+    autoRefreshMs: 30000,
+    maxTrackTeams: 18,
+    Max_point: 100,
+    demoFallback: true,
+    debug: true,
+    patternCodes: { b: "bands", d: "diagonal", m: "mountains", c: "checker", a: "aero", s: "solid" }
+  };
+
+  const DEFAULT_DESIGN = {
+    teamMotto: "Draft fast. Think faster.",
+    primaryColor: "#1d4ed8",
+    secondaryColor: "#facc15",
+    accentColor: "#ef4444",
+    shortsColor: "#111827",
+    pattern: "bands"
+  };
+  const PALETTES = [
+    ["#1d4ed8", "#facc15", "#ef4444", "#111827"],
+    ["#dc2626", "#fde68a", "#f97316", "#1f2937"],
+    ["#16a34a", "#bbf7d0", "#22c55e", "#052e16"],
+    ["#7c3aed", "#e9d5ff", "#a855f7", "#18181b"],
+    ["#0891b2", "#cffafe", "#22d3ee", "#083344"],
+    ["#be185d", "#fbcfe8", "#ec4899", "#312e81"]
+  ];
+
+  const state = {
+    admin: false,
+    teams: [],
+    challenges: [],
+    submissions: [],
+    lastApi: [],
+    lastError: null,
+    lastRefreshAt: null
+  };
+
+  const el = {
+    statusChip: document.querySelector("#statusChip"),
+    statusText: document.querySelector("#statusText"),
+    clock: document.querySelector("#clock"),
+    loading: document.querySelector("#loading"),
+    loadingTitle: document.querySelector("#loadingTitle"),
+    loadingText: document.querySelector("#loadingText"),
+    ticks: document.querySelector("#ticks"),
+    riders: document.querySelector("#riders"),
+    ranking: document.querySelector("#ranking"),
+    note: document.querySelector("#note")
+  };
+
+  init();
+
+  function init() {
+    exposeDebugTools();
+    debugInfo("init", {
+      href: window.location.href,
+      origin: window.location.origin,
+      endpoints: CONFIG.endpoints,
+      hasCsrf: Boolean(getCsrfToken()),
+      hasCtfdConfig: Boolean(window.CTFd || window.init)
+    });
+    drawTicks();
+    refreshData();
+    window.setInterval(refreshData, CONFIG.autoRefreshMs);
+    window.setInterval(updateClock, 1000);
+    updateClock();
+  }
+
+  async function refreshData() {
+    const startedAt = performance.now();
+    try {
+      debugGroup("refresh:start", () => {
+        debugInfo("state-before", {
+          lastRefreshAt: state.lastRefreshAt
+        });
+      });
+      setStatus("sync", "Synchronisation");
+      setLoading(true, "Chargement du scoreboard...", "Scoreboard public puis enrichissement admin si disponible.");
+      
+      const scoreboardPayload = await ctfdGet(CONFIG.endpoints.scoreboard);
+      const scoreboardRows = normalizeScoreboard(scoreboardPayload.data);
+      debugInfo("scoreboard:normalized", {
+        rawShape: describePayload(scoreboardPayload),
+        dataKeys: scoreboardPayload?.data && typeof scoreboardPayload.data === "object" ? Object.keys(scoreboardPayload.data).slice(0, 30) : [],
+        dataSample: samplePayload(scoreboardPayload),
+        rows: scoreboardRows.length,
+        firstRows: scoreboardRows.slice(0, 5)
+      });
+      if (!scoreboardRows.length) {
+        debugWarn("scoreboard:empty", "Le scoreboard public est vide ou dans un format non standard. On continue avec teams/challenges/submissions.");
+      }
+
+      const [teamMap, challenges, submissionsResult] = await Promise.all([
+        loadTeamMetadata(scoreboardRows),
+        loadChallenges(),
+        loadCorrectSubmissions()
+      ]);
+      const effectiveRows = scoreboardRows.length ? scoreboardRows : synthesizeScoreboardRows(teamMap, submissionsResult.submissions, challenges);
+      if (!effectiveRows.length) throw new Error("Aucune equipe exploitable via scoreboard, teams ou submissions.");
+
+      state.challenges = challenges;
+      state.submissions = submissionsResult.submissions;
+      state.admin = submissionsResult.ok;
+      state.teams = enrichTeams(effectiveRows, teamMap, submissionsResult.submissions, challenges);
+      state.lastRefreshAt = new Date();
+      state.lastError = null;
+
+      debugGroup("refresh:result", () => {
+        debugInfo("counts", {
+          scoreboardRows: scoreboardRows.length,
+          effectiveRows: effectiveRows.length,
+          teamMetadataKeys: teamMap.size,
+          challenges: challenges.length,
+          submissions: submissionsResult.submissions.length,
+          submissionsEndpointOk: submissionsResult.ok,
+          enrichedTeams: state.teams.length,
+          durationMs: Math.round(performance.now() - startedAt)
+        });
+        debugTable("teams", state.teams.slice(0, 20).map((team) => ({
+          rank: team.rank,
+          id: team.id,
+          name: team.name,
+          score: team.score,
+          solved: team.solvedCount,
+          challengeTotal: team.challengeTotal,
+          progress: Math.round(team.progress * 100),
+          hasJersey: team.design !== DEFAULT_DESIGN
+        })));
+      });
+
+      setStatus("live", state.admin ? "Live scoreboard" : "Live public");
+      setLoading(false);
+      render();
+    } catch (error) {
+      state.lastError = error;
+      console.error("Velodrome scoreboard:", error);
+      if (CONFIG.demoFallback) {
+        loadDemo(error);
+      } else {
+        setStatus("error", "Erreur API");
+        setLoading(true, "Impossible de charger les donnees", error.message || String(error));
+      }
+    } finally {
+    }
+  }
+
+  async function loadTeamMetadata(scoreboardRows) {
+    const map = new Map();
+    debugInfo("teams:load:start", { scoreboardRows: scoreboardRows.length });
+    const teams = await fetchPaginated(CONFIG.endpoints.teams, { view: "admin", per_page: 100 }, 12)
+      .catch((error) => {
+        debugWarn("teams:admin-list-failed", error);
+        return fetchPaginated(CONFIG.endpoints.teams, { per_page: 100 }, 12);
+      })
+      .catch((error) => {
+        debugWarn("teams:public-list-failed", error);
+        return [];
+      });
+    debugInfo("teams:list:done", { rows: teams.length, sample: teams.slice(0, 3) });
+    teams.forEach((team) => registerTeam(map, team));
+
+    const missing = scoreboardRows.filter((row) => row.id && !map.has(String(row.id))).slice(0, 40);
+    debugInfo("teams:details:missing", { missing: missing.length, ids: missing.map((row) => row.id).slice(0, 20) });
+    await Promise.all(missing.map(async (row) => {
+      try {
+        const payload = await ctfdGet(CONFIG.endpoints.team(row.id));
+        registerTeam(map, payload.data);
+      } catch (error) {
+        debugWarn("teams:detail-failed", { id: row.id, name: row.name, error: error.message || String(error) });
+        /* Public accounts may not access team details. */
+      }
+    }));
+    debugInfo("teams:metadata:done", { keys: map.size });
+    return map;
+  }
+
+  function registerTeam(map, team) {
+    if (!team) return;
+    const id = first(team.id, team.account_id, team.team_id);
+    const name = String(first(team.name, team.account_name, team.team_name, "Equipe"));
+    const affiliation = String(first(team[CONFIG.metadataField], team.affiliation, team.fields?.affiliation, "") || "");
+    const item = { id: id != null ? String(id) : "", name, affiliation };
+    if (item.id) map.set(item.id, item);
+    map.set(`name:${name.toLowerCase()}`, item);
+  }
+
+  async function loadChallenges() {
+    debugInfo("challenges:load:start");
+    const payload = await ctfdGet(CONFIG.endpoints.challenges, { view: "admin" })
+      .catch((error) => {
+        debugWarn("challenges:admin-failed", error);
+        return ctfdGet(CONFIG.endpoints.challenges);
+      })
+      .catch((error) => {
+        debugWarn("challenges:public-failed", error);
+        return { data: [] };
+      });
+    const data = Array.isArray(payload.data) ? payload.data : first(payload.data?.results, payload.data?.challenges, []);
+    const challenges = data.map((challenge) => ({
+      id: first(challenge.id, challenge.challenge_id),
+      value: Number(first(challenge.value, challenge.points, 0)) || 0
+    })).filter((challenge) => challenge.id != null);
+    debugInfo("challenges:done", { rawShape: describePayload(payload), rows: challenges.length, sample: data.slice(0, 3) });
+    return challenges;
+  }
+
+  async function loadCorrectSubmissions() {
+    debugInfo("submissions:load:start", {
+      pageHint: "/admin/submissions",
+      endpoint: CONFIG.endpoints.submissions
+    });
+    try {
+      let rows = await fetchPaginated(CONFIG.endpoints.submissions, { type: "correct", per_page: 100 }, 20);
+      if (!rows.length) rows = await fetchPaginated(CONFIG.endpoints.submissions, { per_page: 100 }, 20);
+      const submissions = rows.map(normalizeSubmission).filter((item) => item.correct);
+      debugInfo("submissions:done", {
+        rawRows: rows.length,
+        correctRows: submissions.length,
+        sampleRaw: rows.slice(0, 3),
+        sampleNormalized: submissions.slice(0, 5)
+      });
+      return { ok: submissions.length > 0, submissions };
+    } catch (error) {
+      debugWarn("submissions:failed", {
+        error: error.message || String(error),
+        hint: "Si /admin/submissions affiche des donnees mais /api/v1/submissions echoue, verifier les droits API/admin ou ajouter un access token."
+      });
+      return { ok: false, submissions: [] };
+    }
+  }
+
+  async function ctfdGet(path, params = {}) {
+    const url = new URL(path, window.location.origin);
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, value);
+    });
+    const startedAt = performance.now();
+    debugInfo("api:get:start", { path, params, url: url.toString() });
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      credentials: "same-origin",
+      headers: getHeaders()
+    });
+    let payload = null;
+    try { payload = await response.json(); } catch { payload = null; }
+    const record = {
+      path,
+      params,
+      status: response.status,
+      ok: response.ok,
+      durationMs: Math.round(performance.now() - startedAt),
+      shape: describePayload(payload)
+    };
+    state.lastApi.push(record);
+    if (state.lastApi.length > 80) state.lastApi.shift();
+    debugInfo("api:get:done", record);
+    if (!response.ok) {
+      debugWarn("api:get:error-payload", { path, status: response.status, payload });
+      throw new Error(payload?.errors ? JSON.stringify(payload.errors) : `HTTP ${response.status} ${url.pathname}`);
+    }
+    if (payload?.success === false) {
+      debugWarn("api:get:rejected-payload", { path, payload });
+      throw new Error(payload.errors ? JSON.stringify(payload.errors) : `CTFd rejected ${url.pathname}`);
+    }
+    return payload || { data: [] };
+  }
+
+  async function fetchPaginated(path, params = {}, maxPages = 10) {
+    const rows = [];
+    let page = Number(params.page || 1);
+    debugInfo("api:paginate:start", { path, params, maxPages });
+    while (page <= maxPages) {
+      const payload = await ctfdGet(path, { ...params, page });
+      const data = payload.data;
+      const batch = Array.isArray(data) ? data : first(data?.results, data?.items, data?.teams, data?.submissions, []);
+      if (Array.isArray(batch)) rows.push(...batch);
+      const pagination = payload.meta?.pagination || data?.pagination || {};
+      debugInfo("api:paginate:page", {
+        path,
+        page,
+        batch: Array.isArray(batch) ? batch.length : "not-array",
+        totalRows: rows.length,
+        pagination
+      });
+      const next = first(pagination.next, pagination.next_page, null);
+      if (next) page = Number(next);
+      else if (pagination.pages && page < Number(pagination.pages)) page += 1;
+      else break;
+    }
+    debugInfo("api:paginate:done", { path, rows: rows.length });
+    return rows;
+  }
+
+  function getHeaders() {
+    const headers = { Accept: "application/json" };
+    const token = getCsrfToken();
+    if (token) {
+      headers["CSRF-Token"] = token;
+      headers["X-CSRFToken"] = token;
+    }
+    return headers;
+  }
+
+  function getCsrfToken() {
+    return window.csrfNonce || window.init?.csrfNonce || document.querySelector('meta[name="csrf-token"]')?.content || document.querySelector('input[name="nonce"]')?.value || "";
+  }
+
+  function normalizeScoreboard(data) {
+    const rows = extractRows(data, ["scoreboard", "standings", "results", "items", "accounts", "teams", "users"]);
+    return rows.map((row, index) => {
+      const id = first(row.account_id, row.team_id, row.id, row.account?.id, row.team?.id);
+      const name = String(first(row.name, row.account_name, row.team_name, row.account?.name, row.team?.name, `Equipe ${index + 1}`));
+      return {
+        id: id != null ? String(id) : name,
+        name,
+        rank: Number(first(row.pos, row.place, row.rank, index + 1)) || index + 1,
+        score: Number(first(row.score, row.value, row.points, 0)) || 0
+      };
+    }).sort((a, b) => a.rank - b.rank || b.score - a.score);
+  }
+
+  function synthesizeScoreboardRows(teamMap, submissions, challenges) {
+    const challengeValues = new Map(challenges.map((challenge) => [String(challenge.id), Number(challenge.value) || 0]));
+    const teamsByKey = new Map();
+    teamMap.forEach((team) => {
+      const key = team.id || `name:${team.name.toLowerCase()}`;
+      if (!teamsByKey.has(key)) {
+        teamsByKey.set(key, { id: team.id || key, name: team.name, score: 0, solved: new Set() });
+      }
+    });
+
+    submissions.forEach((sub) => {
+      const key = sub.teamId || `name:${sub.teamName.toLowerCase()}`;
+      if (!teamsByKey.has(key)) {
+        teamsByKey.set(key, { id: sub.teamId || key, name: sub.teamName || "Equipe", score: 0, solved: new Set() });
+      }
+      const row = teamsByKey.get(key);
+      if (!row.solved.has(sub.challengeId)) {
+        row.solved.add(sub.challengeId);
+        row.score += challengeValues.get(String(sub.challengeId)) || 1;
+      }
+    });
+
+    const rows = Array.from(teamsByKey.values()).map((team) => ({
+      id: team.id,
+      name: team.name,
+      score: team.score
+    }));
+    rows.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, "fr"));
+    return rows.map((row, index) => ({ ...row, rank: index + 1 }));
+  }
+
+  function normalizeSubmission(sub) {
+    const teamId = first(sub.team_id, sub.account_id, sub.team?.id, sub.account?.id, sub.user?.team_id);
+    const teamName = String(first(sub.team_name, sub.account_name, sub.team?.name, sub.account?.name, sub.user?.team?.name, ""));
+    const challengeId = first(sub.challenge_id, sub.challenge?.id, sub.challenge_name, sub.challenge?.name);
+    const type = String(first(sub.type, sub.status, "")).toLowerCase();
+    return {
+      teamId: teamId != null ? String(teamId) : "",
+      teamName,
+      challengeId: challengeId != null ? String(challengeId) : "",
+      correct: type.includes("correct") || type === "solved" || sub.correct === true
+    };
+  }
+
+  function enrichTeams(rows, teamMap, submissions, challenges) {
+    const leaderScore = Math.max(...rows.map((row) => row.score), 1);
+    const trackTotal = Math.max(Number(CONFIG.Max_point) || leaderScore || 1, 1);
+    const solveSets = new Map();
+    submissions.forEach((sub) => {
+      const key = sub.teamId || `name:${sub.teamName.toLowerCase()}`;
+      if (!solveSets.has(key)) solveSets.set(key, new Set());
+      solveSets.get(key).add(sub.challengeId);
+    });
+
+    return rows.map((row, index) => {
+      const meta = teamMap.get(String(row.id)) || teamMap.get(`name:${row.name.toLowerCase()}`) || {};
+      const design = parseJerseyConfig(meta.affiliation) || fallbackDesign(index);
+      const solves = solveSets.get(String(row.id)) || solveSets.get(`name:${row.name.toLowerCase()}`) || new Set();
+      const scoreProgress = clamp(row.score / trackTotal, 0, 10);
+      const progress = clamp(scoreProgress, 0, 1);
+      const lapProgress = scoreProgress >= 1 ? 0.999 : scoreProgress % 1;
+      return {
+        ...row,
+        design,
+        accent: design.accentColor,
+        solvedCount: solves.size,
+        challengeTotal: challenges.length,
+        progress,
+        lapProgress,
+        laps: Math.floor(scoreProgress),
+        number: createRaceNumber(row.id)
+      };
+    });
+  }
+
+  function parseJerseyConfig(value) {
+    if (!value || typeof value !== "string") return null;
+    const parts = value.split("|");
+    const colors = parts[1] || "";
+    const patternCode = parts[2] || "b";
+    if (parts.length !== 3 || !/^[0-9a-fA-F]{24}$/.test(colors) || !CONFIG.patternCodes[patternCode]) return null;
+    return {
+      teamMotto: clean(parts[0], DEFAULT_DESIGN.teamMotto, 42),
+      primaryColor: `#${colors.slice(0, 6).toLowerCase()}`,
+      secondaryColor: `#${colors.slice(6, 12).toLowerCase()}`,
+      accentColor: `#${colors.slice(12, 18).toLowerCase()}`,
+      shortsColor: `#${colors.slice(18, 24).toLowerCase()}`,
+      pattern: CONFIG.patternCodes[patternCode]
+    };
+  }
+
+  function fallbackDesign(index) {
+    const palette = PALETTES[index % PALETTES.length];
+    const patterns = ["bands", "diagonal", "mountains", "checker", "aero", "solid"];
+    return { ...DEFAULT_DESIGN, primaryColor: palette[0], secondaryColor: palette[1], accentColor: palette[2], shortsColor: palette[3], pattern: patterns[index % patterns.length] };
+  }
+
+  function render() {
+    const teams = visibleTeams();
+    renderTrack(teams.slice(0, CONFIG.maxTrackTeams));
+    renderRanking(teams);
+  }
+
+  function visibleTeams() {
+    let teams = state.teams.slice();
+    teams.sort((a, b) => a.rank - b.rank || b.score - a.score);
+    return teams;
+  }
+
+  function renderTrack(teams) {
+    el.riders.replaceChildren();
+    if (!teams.length) return;
+    teams.map((team) => ({ team, pos: trackPosition(team.lapProgress) }))
+      .sort((a, b) => {
+        if (Number(a.team.rank) === 1 && Number(b.team.rank) !== 1) return 1;
+        if (Number(b.team.rank) === 1 && Number(a.team.rank) !== 1) return -1;
+        return a.pos.y - b.pos.y;
+      })
+      .forEach(({ team, pos }) => el.riders.appendChild(createRider(team, pos)));
+  }
+
+  function renderRanking(teams) {
+    el.ranking.replaceChildren();
+    if (!teams.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "Aucune equipe.";
+      el.ranking.appendChild(empty);
+      return;
+    }
+    teams.forEach((team) => {
+      const row = document.createElement("div");
+      row.className = "row";
+      row.style.setProperty("--team-accent", team.accent);
+      row.innerHTML = '<div class="rank"></div><div class="team"></div><div class="score"></div>';
+      row.querySelector(".rank").textContent = String(team.rank);
+      row.querySelector(".score").textContent = formatNumber(team.score);
+      const teamCell = row.querySelector(".team");
+      teamCell.appendChild(createJerseyIcon(team.design, team.number));
+      const label = document.createElement("div");
+      const name = document.createElement("strong");
+      name.textContent = team.name;
+      label.appendChild(name);
+      teamCell.appendChild(label);
+      el.ranking.appendChild(row);
+    });
+  }
+
+  function trackPosition(progress) {
+    const leftX = 318, rightX = 782, cy = 332, rx = 160, ry = 212;
+    const topY = cy - ry, bottomY = cy + ry;
+    const straight = rightX - leftX;
+    const arc = Math.PI * Math.sqrt((rx * rx + ry * ry) / 2);
+    const total = straight * 2 + arc * 2;
+    let distance = ((progress % 1) + 1) % 1 * total;
+    let x, y, angle;
+    if (distance < straight) {
+      const t = distance / straight;
+      x = leftX + straight * t;
+      y = topY;
+      angle = 0;
+    } else if (distance < straight + arc) {
+      const t = (distance - straight) / arc;
+      const theta = -Math.PI / 2 + t * Math.PI;
+      x = rightX + rx * Math.cos(theta);
+      y = cy + ry * Math.sin(theta);
+      angle = theta + Math.PI / 2;
+    } else if (distance < straight * 2 + arc) {
+      const t = (distance - straight - arc) / straight;
+      x = rightX - straight * t;
+      y = bottomY;
+      angle = Math.PI;
+    } else {
+      const t = (distance - straight * 2 - arc) / arc;
+      const theta = Math.PI / 2 + t * Math.PI;
+      x = leftX + rx * Math.cos(theta);
+      y = cy + ry * Math.sin(theta);
+      angle = theta + Math.PI / 2;
+    }
+    const scale = 0.76 + ((y - topY) / (ry * 2)) * 0.34;
+    return { x, y, angle, scale };
+  }
+
+  function createRider(team, pos) {
+    const g = svg("g", { class: "rider", transform: `translate(${pos.x.toFixed(1)} ${pos.y.toFixed(1)}) scale(${pos.scale.toFixed(3)})`, filter: "url(#softShadow)", tabindex: "0" });
+    g.appendChild(svg("title", {}, `${team.rank}. ${team.name} - ${team.score} points`));
+    const token = svg("g", {});
+    token.append(
+      svg("ellipse", { cx: 0, cy: 32, rx: 44, ry: 14, fill: "rgba(0,0,0,.28)" }),
+      svg("circle", { cx: -24, cy: 20, r: 16, fill: "none", stroke: "#101820", "stroke-width": 5 }),
+      svg("circle", { cx: 25, cy: 20, r: 16, fill: "none", stroke: "#101820", "stroke-width": 5 }),
+      svg("path", { d: "M-24 20 L-4 -8 L8 20 L-24 20 M-4 -8 L25 20 L8 20", fill: "none", stroke: team.accent, "stroke-width": 4, "stroke-linejoin": "round", "stroke-linecap": "round" }),
+      svg("path", { d: "M-16 -21 Q0 -39 21 -24 L14 7 Q-9 16 -25 1 Z", fill: team.design.primaryColor, stroke: "#101820", "stroke-width": 3, "stroke-linejoin": "round" }),
+      svg("path", { d: jerseyPatternPath(team.design.pattern), fill: team.design.secondaryColor, opacity: .95 }),
+      svg("circle", { cx: 18, cy: -38, r: 11, fill: team.design.secondaryColor, stroke: "#101820", "stroke-width": 3 }),
+      svg("path", { d: "M-18 7 L-29 20 M7 8 L20 20", stroke: team.design.shortsColor, "stroke-width": 7, "stroke-linecap": "round" })
+    );
+    const width = Math.max(104, Math.min(210, 46 + team.name.length * 7));
+    const label = svg("g", { class: "rider-label", transform: `translate(${-width / 2} -82)` });
+    label.append(svg("rect", { x: 0, y: 0, width, height: 42, rx: 7, fill: "#101820", stroke: "rgba(255,255,255,.18)" }));
+    const rank = svg("text", { x: 12, y: 26, fill: team.accent, "font-size": 18, "font-weight": 950, "font-family": "Inter, Arial, sans-serif" });
+    rank.textContent = team.rank;
+    const name = svg("text", { x: 36, y: 18, fill: "#fff", "font-size": 13, "font-weight": 850, "font-family": "Inter, Arial, sans-serif" });
+    name.textContent = truncate(team.name, 20);
+    const score = svg("text", { x: 36, y: 34, fill: "#9aa9b8", "font-size": 12, "font-weight": 750, "font-family": "Inter, Arial, sans-serif" });
+    score.textContent = `${formatNumber(team.score)} pts`;
+    label.append(rank, name, score);
+    g.append(token, label);
+    return g;
+  }
+
+  function jerseyPatternPath(pattern) {
+    switch (pattern) {
+      case "diagonal": return "M-19 -16 L-9 -28 L21 0 L16 9 Z";
+      case "mountains": return "M-24 1 L-11 -13 L0 4 L10 -11 L22 5 L20 11 L-24 11 Z";
+      case "checker": return "M-15 -24 H-4 V-13 H-15 Z M-4 -13 H7 V-2 H-4 Z M7 -24 H18 V-13 H7 Z";
+      case "aero": return "M-14 -27 H-8 V9 H-14 Z M-1 -28 H5 V10 H-1 Z M12 -25 H18 V7 H12 Z";
+      case "solid": return "";
+      case "bands":
+      default: return "M-22 -11 H21 V-2 H-22 Z";
+    }
+  }
+
+  function createJerseyIcon(design, number) {
+    const node = svg("svg", { class: "jersey-icon", viewBox: "0 0 72 84", "aria-hidden": "true" });
+    node.appendChild(svg("path", { d: "M20 8 L31 2 L36 11 L41 2 L52 8 L66 28 L58 35 L51 24 L51 48 L21 48 L21 24 L14 35 L6 28 Z", fill: design.primaryColor, stroke: "#101820", "stroke-width": 2, "stroke-linejoin": "round" }));
+    if (design.pattern === "bands") node.append(svg("rect", { x: 17, y: 23, width: 38, height: 6, fill: design.secondaryColor }), svg("rect", { x: 17, y: 34, width: 38, height: 5, fill: design.accentColor }));
+    if (design.pattern === "diagonal") node.append(svg("path", { d: "M12 18 L21 10 L59 43 L52 49 Z", fill: design.secondaryColor }), svg("path", { d: "M10 29 L17 22 L55 54 L50 60 Z", fill: design.accentColor }));
+    if (design.pattern === "checker") for (let i = 0; i < 4; i += 1) for (let j = 0; j < 3; j += 1) if ((i + j) % 2 === 0) node.appendChild(svg("rect", { x: 21 + i * 8, y: 14 + j * 8, width: 8, height: 8, fill: j === 2 ? design.accentColor : design.secondaryColor }));
+    if (design.pattern === "aero") [22, 32, 42].forEach((x, i) => node.appendChild(svg("rect", { x, y: 10, width: i === 1 ? 5 : 7, height: 38, fill: i === 1 ? design.accentColor : design.secondaryColor })));
+    if (design.pattern === "mountains") node.append(svg("path", { d: "M17 42 L26 27 L34 42 L43 29 L55 43 L55 49 L17 49 Z", fill: design.secondaryColor }), svg("path", { d: "M18 42 L26 27 L34 42 L43 29 L55 43", fill: "none", stroke: design.accentColor, "stroke-width": 3 }));
+    node.append(svg("path", { d: "M30 3 L36 12 L42 3 L41 20 L36 25 L31 20 Z", fill: "#fff", opacity: ".92" }));
+    node.append(svg("path", { d: "M23 48 L49 48 L54 78 L44 78 L36 57 L28 78 L18 78 Z", fill: design.shortsColor, stroke: "#101820", "stroke-width": 2, "stroke-linejoin": "round" }));
+    const text = svg("text", { x: 36, y: 39, "text-anchor": "middle", fill: "#101820", "font-size": 7, "font-weight": 950, "font-family": "Inter, Arial, sans-serif" });
+    text.textContent = number;
+    node.appendChild(text);
+    return node;
+  }
+
+  function drawTicks() {
+    el.ticks.replaceChildren();
+    [0, .125, .25, .375, .5, .625, .75, .875].forEach((progress, index) => {
+      const pos = markerPosition(progress);
+      const tick = svg("g", { transform: `translate(${pos.x.toFixed(1)} ${pos.y.toFixed(1)})` });
+      tick.append(svg("line", { x1: 0, y1: -11, x2: 0, y2: 11, stroke: "rgba(255,255,255,.58)", "stroke-width": 2 }));
+      if (index === 0) tick.append(svg("rect", { x: -22, y: -38, width: 44, height: 18, rx: 4, fill: "#101820", stroke: "rgba(255,255,255,.18)" }));
+      if (index === 0) {
+        const text = svg("text", { x: 0, y: -25, "text-anchor": "middle", fill: "#fff", "font-size": 11, "font-weight": 900 });
+        text.textContent = "START";
+        tick.appendChild(text);
+      }
+      el.ticks.appendChild(tick);
+    });
+  }
+
+  function markerPosition(progress) {
+    const leftX = 318, rightX = 782, cy = 332, rx = 160, ry = 212;
+    const topY = cy - ry, bottomY = cy + ry;
+    const straight = rightX - leftX;
+    const arc = Math.PI * Math.sqrt((rx * rx + ry * ry) / 2);
+    const total = straight * 2 + arc * 2;
+    let distance = ((progress % 1) + 1) % 1 * total;
+    let x, y;
+    if (distance < straight) {
+      const t = distance / straight;
+      x = leftX + straight * t;
+      y = topY;
+    } else if (distance < straight + arc) {
+      const t = (distance - straight) / arc;
+      const theta = -Math.PI / 2 + t * Math.PI;
+      x = rightX + rx * Math.cos(theta);
+      y = cy + ry * Math.sin(theta);
+    } else if (distance < straight * 2 + arc) {
+      const t = (distance - straight - arc) / straight;
+      x = rightX - straight * t;
+      y = bottomY;
+    } else {
+      const t = (distance - straight * 2 - arc) / arc;
+      const theta = Math.PI / 2 + t * Math.PI;
+      x = leftX + rx * Math.cos(theta);
+      y = cy + ry * Math.sin(theta);
+    }
+    return { x, y };
+  }
+
+  function loadDemo(error) {
+    const rows = [
+      [1, "Chain Breakers", 2500],
+      [2, "Packet Peloton", 2120],
+      [3, "Cipher Cyclists", 1780],
+      [4, "Binary Breakaway", 1420],
+      [5, "Zero Day Sprinters", 980],
+      [6, "Hashrate Heroes", 720]
+    ].map(([rank, name, score]) => ({ id: String(rank), rank, name, score }));
+    const challenges = Array.from({ length: 30 }, (_, i) => ({ id: i + 1, value: i < 10 ? 100 : i < 22 ? 250 : 500 }));
+    const teamMap = new Map();
+    rows.forEach((row, index) => teamMap.set(row.id, { id: row.id, name: row.name, affiliation: index === 0 ? "Draft fast. Think faster.|1d4ed8facc15ef4444111827|b" : "" }));
+    state.challenges = challenges;
+    state.submissions = [];
+    state.admin = false;
+    state.teams = enrichTeams(rows, teamMap, [], challenges);
+    state.lastRefreshAt = new Date();
+    setStatus("error", "Demo locale");
+    setLoading(false);
+    render();
+    el.note.classList.remove("hidden");
+    el.note.textContent = `Demo locale: les API CTFd n'ont pas repondu (${error.message || error}). Ouvrez cette page depuis CTFd avec une session authentifiee.`;
+  }
+
+  function setStatus(type, text) {
+    el.statusChip.classList.toggle("live", type === "live");
+    el.statusChip.classList.toggle("error", type === "error");
+    el.statusText.textContent = text;
+  }
+
+  function setLoading(show, title = "", text = "") {
+    el.loading.classList.toggle("hidden", !show);
+    if (title) el.loadingTitle.textContent = title;
+    if (text) el.loadingText.textContent = text;
+  }
+
+  function updateClock() {
+    if (!state.lastRefreshAt) {
+      el.clock.textContent = new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+      return;
+    }
+    const seconds = Math.max(0, Math.round((Date.now() - state.lastRefreshAt.getTime()) / 1000));
+    el.clock.textContent = seconds < 60 ? `MAJ ${60-seconds}s` : `MAJ ${Math.round(seconds / 60)}min`;
+  }
+
+  function exposeDebugTools() {
+    window.velodromeDebug = {
+      state,
+      config: CONFIG,
+      refresh: refreshData,
+      api: ctfdGet,
+      paginate: fetchPaginated,
+      headers: getHeaders,
+      inspect: () => ({
+        state,
+        lastApi: state.lastApi.slice(),
+        lastError: state.lastError,
+        teams: state.teams,
+        challenges: state.challenges,
+        submissions: state.submissions
+      }),
+      async probe() {
+        debugGroup("probe:start", () => {
+          debugInfo("origin", window.location.origin);
+          debugInfo("headers", redactHeaders(getHeaders()));
+        });
+        const probes = [
+          ["scoreboard", CONFIG.endpoints.scoreboard, {}],
+          ["teams-admin", CONFIG.endpoints.teams, { view: "admin", per_page: 5 }],
+          ["teams-public", CONFIG.endpoints.teams, { per_page: 5 }],
+          ["challenges-admin", CONFIG.endpoints.challenges, { view: "admin" }],
+          ["challenges-public", CONFIG.endpoints.challenges, {}],
+          ["submissions-correct", CONFIG.endpoints.submissions, { type: "correct", per_page: 5 }],
+          ["submissions-all", CONFIG.endpoints.submissions, { per_page: 5 }]
+        ];
+        const results = [];
+        for (const [name, path, params] of probes) {
+          try {
+            const payload = await ctfdGet(path, params);
+            results.push({ name, ok: true, shape: describePayload(payload), sample: samplePayload(payload) });
+          } catch (error) {
+            results.push({ name, ok: false, error: error.message || String(error) });
+          }
+        }
+        console.table(results.map((result) => ({
+          name: result.name,
+          ok: result.ok,
+          error: result.error || "",
+          shape: result.shape ? JSON.stringify(result.shape) : ""
+        })));
+        debugInfo("probe:results", results);
+        return results;
+      }
+    };
+    debugInfo("debug-tools", "Console helpers available on window.velodromeDebug: refresh(), probe(), api(path, params), paginate(path, params), inspect().");
+  }
+
+  function describePayload(payload) {
+    if (payload == null) return { type: String(payload) };
+    if (Array.isArray(payload)) return { type: "array", length: payload.length };
+    if (typeof payload !== "object") return { type: typeof payload };
+    const data = payload.data;
+    const meta = payload.meta;
+    const shape = {
+      type: "object",
+      keys: Object.keys(payload).slice(0, 12),
+      success: payload.success
+    };
+    if (Array.isArray(data)) shape.data = { type: "array", length: data.length };
+    else if (data && typeof data === "object") shape.data = { type: "object", keys: Object.keys(data).slice(0, 12) };
+    else shape.data = { type: typeof data };
+    if (meta && typeof meta === "object") shape.meta = { keys: Object.keys(meta).slice(0, 12), pagination: meta.pagination || null };
+    return shape;
+  }
+
+  function samplePayload(payload) {
+    const data = payload?.data;
+    if (Array.isArray(data)) return data.slice(0, 3);
+    if (Array.isArray(data?.results)) return data.results.slice(0, 3);
+    if (Array.isArray(data?.items)) return data.items.slice(0, 3);
+    if (Array.isArray(data?.teams)) return data.teams.slice(0, 3);
+    if (Array.isArray(data?.submissions)) return data.submissions.slice(0, 3);
+    return data || payload;
+  }
+
+  function extractRows(value, preferredKeys = []) {
+    if (Array.isArray(value)) return value;
+    if (!value || typeof value !== "object") return [];
+    for (const key of preferredKeys) {
+      const nested = value[key];
+      if (Array.isArray(nested)) return nested;
+      const nestedRows = extractRows(nested, preferredKeys);
+      if (nestedRows.length) return nestedRows;
+    }
+    const values = Object.values(value);
+    if (values.every((item) => item && typeof item === "object" && !Array.isArray(item))) {
+      const objectRows = values.filter((item) => {
+        return first(item.name, item.account_name, item.team_name, item.account?.name, item.team?.name) !== undefined
+          || first(item.score, item.value, item.points) !== undefined;
+      });
+      if (objectRows.length) return objectRows;
+    }
+    for (const nested of values) {
+      const nestedRows = extractRows(nested, preferredKeys);
+      if (nestedRows.length) return nestedRows;
+    }
+    return [];
+  }
+
+  function debugGroup(label, callback) {
+    if (!CONFIG.debug) return;
+    console.groupCollapsed(`[velodrome] ${label}`);
+    try {
+      callback();
+    } finally {
+      console.groupEnd();
+    }
+  }
+
+  function debugInfo(label, value = "") {
+    if (!CONFIG.debug) return;
+    if (value === "") console.info(`[velodrome] ${label}`);
+    else console.info(`[velodrome] ${label}`, value);
+  }
+
+  function debugWarn(label, value = "") {
+    if (!CONFIG.debug) return;
+    if (value === "") console.warn(`[velodrome] ${label}`);
+    else console.warn(`[velodrome] ${label}`, value);
+  }
+
+  function debugTable(label, rows) {
+    if (!CONFIG.debug || !rows?.length) return;
+    console.info(`[velodrome] ${label}`);
+    console.table(rows);
+  }
+
+  function redactHeaders(headers) {
+    return Object.fromEntries(Object.entries(headers).map(([key, value]) => {
+      if (/token|csrf|authorization/i.test(key)) return [key, value ? "[present]" : ""];
+      return [key, value];
+    }));
+  }
+
+  function svg(tag, attrs = {}, text = "") {
+    const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function first(...values) {
+    return values.find((value) => value !== undefined && value !== null && value !== "");
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(Number(value) || 0, min), max);
+  }
+
+  function clean(value, fallback, maxLength) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    return (text || fallback).slice(0, maxLength);
+  }
+
+  function createRaceNumber(value) {
+    return String(value || "").replace(/\D/g, "").slice(-3).padStart(3, "0") || "404";
+  }
+
+  function truncate(value, max) {
+    const text = String(value || "");
+    return text.length > max ? `${text.slice(0, Math.max(0, max - 3))}...` : text;
+  }
+
+  function formatNumber(value) {
+    return new Intl.NumberFormat("fr-FR").format(Number(value) || 0);
+  }
+})();
+  </script>
+</body>
+</html>
