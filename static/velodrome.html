@@ -157,6 +157,11 @@ button { cursor: pointer; }
   border-top: 1px solid rgba(255,255,255,.08);
   padding: 6px;
 }
+.row:hover,
+.row:focus {
+  background: rgba(255,255,255,.06);
+  outline: none;
+}
 .rank {
   color: var(--team-accent, #fff);
   font-size: 1.15rem;
@@ -184,14 +189,39 @@ button { cursor: pointer; }
   width: 34px;
   height: 40px;
 }
+.rider {
+  transition: opacity .16s ease;
+}
+.rider-token {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform .16s ease;
+}
+.rider-halo {
+  opacity: 0;
+  transition: opacity .16s ease;
+}
 .rider-label {
   opacity: 0;
   pointer-events: none;
   transition: opacity .16s ease;
 }
+#riders.has-highlight .rider:not(.highlighted) {
+  opacity: .34;
+}
 .rider:hover .rider-label,
-.rider:focus .rider-label {
+.rider:focus .rider-label,
+.rider.highlighted .rider-label {
   opacity: 1;
+}
+.rider.highlighted .rider-token {
+  transform: scale(1.18);
+}
+.rider.highlighted .rider-halo {
+  opacity: .95;
+}
+.rider.highlighted {
+  filter: url(#softShadow) drop-shadow(0 0 10px rgba(255,255,255,.42));
 }
 .note {
   margin-top: 12px;
@@ -341,6 +371,10 @@ button { cursor: pointer; }
     ranking: document.querySelector("#ranking"),
     note: document.querySelector("#note")
   };
+  const trackRiders = new Map();
+  const rankingTeams = new Map();
+  let highlightedTeamKey = "";
+  let temporaryRider = null;
 
   init();
 
@@ -353,6 +387,7 @@ button { cursor: pointer; }
       hasCsrf: Boolean(getCsrfToken()),
       hasCtfdConfig: Boolean(window.CTFd || window.init)
     });
+    bindRankingHover();
     drawTicks();
     refreshData();
     window.setInterval(refreshData, CONFIG.autoRefreshMs);
@@ -723,18 +758,26 @@ button { cursor: pointer; }
   }
 
   function renderTrack(teams) {
+    trackRiders.clear();
+    highlightedTeamKey = "";
+    el.riders.classList.remove("has-highlight");
     el.riders.replaceChildren();
     if (!teams.length) return;
-    teams.map((team) => ({ team, pos: trackPosition(team.lapProgress) }))
+    spreadClosePositions(teams.map((team) => ({ team, pos: trackPosition(team.lapProgress) })))
       .sort((a, b) => {
         if (Number(a.team.rank) === 1 && Number(b.team.rank) !== 1) return 1;
         if (Number(b.team.rank) === 1 && Number(a.team.rank) !== 1) return -1;
         return a.pos.y - b.pos.y;
       })
-      .forEach(({ team, pos }) => el.riders.appendChild(createRider(team, pos)));
+      .forEach(({ team, pos }) => {
+        const rider = createRider(team, pos);
+        trackRiders.set(teamKey(team), rider);
+        el.riders.appendChild(rider);
+      });
   }
 
   function renderRanking(teams) {
+    rankingTeams.clear();
     el.ranking.replaceChildren();
     if (!teams.length) {
       const empty = document.createElement("div");
@@ -744,8 +787,11 @@ button { cursor: pointer; }
       return;
     }
     teams.forEach((team) => {
+      rankingTeams.set(teamKey(team), team);
       const row = document.createElement("div");
       row.className = "row";
+      row.tabIndex = 0;
+      row.dataset.teamKey = teamKey(team);
       row.style.setProperty("--team-accent", team.accent);
       row.innerHTML = '<div class="rank"></div><div class="team"></div><div class="score"></div>';
       row.querySelector(".rank").textContent = String(team.rank);
@@ -759,6 +805,81 @@ button { cursor: pointer; }
       teamCell.appendChild(label);
       el.ranking.appendChild(row);
     });
+  }
+
+  function bindRankingHover() {
+    el.ranking.addEventListener("pointerover", (event) => {
+      const row = event.target.closest(".row");
+      if (!row || !el.ranking.contains(row)) return;
+      setHighlightedTeam(row.dataset.teamKey);
+    });
+    el.ranking.addEventListener("pointerout", (event) => {
+      const row = event.target.closest(".row");
+      if (!row || row.contains(event.relatedTarget)) return;
+      clearHighlightedTeam();
+    });
+    el.ranking.addEventListener("focusin", (event) => {
+      const row = event.target.closest(".row");
+      if (row) setHighlightedTeam(row.dataset.teamKey);
+    });
+    el.ranking.addEventListener("focusout", clearHighlightedTeam);
+  }
+
+  function setHighlightedTeam(key) {
+    if (!key || key === highlightedTeamKey) return;
+    clearHighlightedTeam(false);
+    let rider = trackRiders.get(key);
+    if (!rider) {
+      const team = rankingTeams.get(key);
+      if (!team) return;
+      rider = createRider(team, trackPosition(team.lapProgress));
+      temporaryRider = rider;
+    }
+    if (!rider) return;
+    highlightedTeamKey = key;
+    rider.classList.add("highlighted");
+    el.riders.classList.add("has-highlight");
+    el.riders.appendChild(rider);
+  }
+
+  function clearHighlightedTeam(restoreOrder = true) {
+    if (!highlightedTeamKey) return;
+    const rider = trackRiders.get(highlightedTeamKey);
+    if (rider) rider.classList.remove("highlighted");
+    if (temporaryRider) {
+      temporaryRider.remove();
+      temporaryRider = null;
+    }
+    highlightedTeamKey = "";
+    el.riders.classList.remove("has-highlight");
+    if (restoreOrder) renderTrack(visibleTeams().slice(0, CONFIG.maxTrackTeams));
+  }
+
+  function spreadClosePositions(items) {
+    const groups = new Map();
+    items.forEach((item) => {
+      const key = String(Math.round(item.team.lapProgress * 360));
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(item);
+    });
+
+    groups.forEach((group) => {
+      if (group.length < 2) return;
+      group.sort((a, b) => a.team.rank - b.team.rank);
+      const middle = (group.length - 1) / 2;
+      group.forEach((item, index) => {
+        const lane = index - middle;
+        const stagger = lane * 15;
+        const tangent = ((index % 2) - .5) * Math.min(group.length - 1, 4) * 5;
+        const nx = -Math.sin(item.pos.angle);
+        const ny = Math.cos(item.pos.angle) * .58;
+        const tx = Math.cos(item.pos.angle);
+        const ty = Math.sin(item.pos.angle) * .58;
+        item.pos.x += nx * stagger + tx * tangent;
+        item.pos.y += ny * stagger + ty * tangent;
+      });
+    });
+    return items;
   }
 
   function trackPosition(progress) {
@@ -797,18 +918,27 @@ button { cursor: pointer; }
   }
 
   function createRider(team, pos) {
-    const g = svg("g", { class: "rider", transform: `translate(${pos.x.toFixed(1)} ${pos.y.toFixed(1)}) scale(${pos.scale.toFixed(3)})`, filter: "url(#softShadow)", tabindex: "0" });
+    const g = svg("g", { class: "rider", "data-team-key": teamKey(team), transform: `translate(${pos.x.toFixed(1)} ${pos.y.toFixed(1)}) scale(${pos.scale.toFixed(3)})`, filter: "url(#softShadow)", tabindex: "0" });
     g.appendChild(svg("title", {}, `${team.rank}. ${team.name} - ${team.score} points`));
-    const token = svg("g", {});
-    token.append(
-      svg("ellipse", { cx: 0, cy: 32, rx: 44, ry: 14, fill: "rgba(0,0,0,.28)" }),
+    const token = svg("g", { class: "rider-token" });
+    const wheels = svg("g", {});
+    wheels.append(
       svg("circle", { cx: -24, cy: 20, r: 16, fill: "none", stroke: "#101820", "stroke-width": 5 }),
-      svg("circle", { cx: 25, cy: 20, r: 16, fill: "none", stroke: "#101820", "stroke-width": 5 }),
+      svg("circle", { cx: 25, cy: 20, r: 16, fill: "none", stroke: "#101820", "stroke-width": 5 })
+    );
+    const rider = svg("g", {});
+    rider.append(
+      svg("path", { d: "M-18 7 L-29 20 M7 8 L20 20", stroke: team.design.shortsColor, "stroke-width": 7, "stroke-linecap": "round" }),
       svg("path", { d: "M-24 20 L-4 -8 L8 20 L-24 20 M-4 -8 L25 20 L8 20", fill: "none", stroke: team.accent, "stroke-width": 4, "stroke-linejoin": "round", "stroke-linecap": "round" }),
       svg("path", { d: "M-16 -21 Q0 -39 21 -24 L14 7 Q-9 16 -25 1 Z", fill: team.design.primaryColor, stroke: "#101820", "stroke-width": 3, "stroke-linejoin": "round" }),
       svg("path", { d: jerseyPatternPath(team.design.pattern), fill: team.design.secondaryColor, opacity: .95 }),
-      svg("circle", { cx: 18, cy: -38, r: 11, fill: team.design.secondaryColor, stroke: "#101820", "stroke-width": 3 }),
-      svg("path", { d: "M-18 7 L-29 20 M7 8 L20 20", stroke: team.design.shortsColor, "stroke-width": 7, "stroke-linecap": "round" })
+      svg("circle", { cx: 18, cy: -38, r: 11, fill: team.design.secondaryColor, stroke: "#101820", "stroke-width": 3 })
+    );
+    token.append(
+      svg("ellipse", { class: "rider-halo", cx: 0, cy: 2, rx: 58, ry: 50, fill: team.accent, "fill-opacity": .18, stroke: team.accent, "stroke-width": 5 }),
+      svg("ellipse", { cx: 0, cy: 32, rx: 44, ry: 14, fill: "rgba(0,0,0,.28)" }),
+      wheels,
+      rider
     );
     const width = Math.max(104, Math.min(210, 46 + team.name.length * 7));
     const label = svg("g", { class: "rider-label", transform: `translate(${-width / 2} -82)` });
@@ -1104,6 +1234,10 @@ button { cursor: pointer; }
 
   function createRaceNumber(value) {
     return String(value || "").replace(/\D/g, "").slice(-3).padStart(3, "0") || "404";
+  }
+
+  function teamKey(team) {
+    return String(first(team.id, team.name, team.rank)).toLowerCase();
   }
 
   function truncate(value, max) {
