@@ -53,7 +53,10 @@
 
                 <div class="mb-3">
                   <b>{{ form.language.label(class="form-label") }}</b>
-                  {{ form.language(class="form-select", value=language) }}
+                  <select class="form-select" id="{{ form.language.id }}" name="{{ form.language.name }}">
+                    <option value="en" {% if language == "en" %}selected{% endif %}>English</option>
+                    <option value="fr" {% if language == "fr" %}selected{% endif %}>Français</option>
+                  </select>
                 </div>
 
                 <hr>

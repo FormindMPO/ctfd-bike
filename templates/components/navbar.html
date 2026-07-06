@@ -184,11 +184,13 @@
             <ul class="dropdown-menu dropdown-menu-end">
               {% set curr_lang = get_locale() %}
               {%- for lang in Languages.names.items() %}
-              <li>
-                  <span class="dropdown-item {{ 'bg-primary text-white' if (curr_lang == lang[0]) }}" @click="set" value="{{ lang[0] }}">
-                    {{ lang[1] }}
-                  </span>
-              </li>
+                {% if lang[0] in ["en", "fr"] %}
+                  <li>
+                    <span class="dropdown-item {{ 'bg-primary text-white' if (curr_lang == lang[0]) }}" @click="set" value="{{ lang[0] }}">
+                      {{ lang[1] }}
+                    </span>
+                  </li>
+                {% endif %}
               {%- endfor %}
             </ul>
           </form>
